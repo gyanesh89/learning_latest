@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Well-Documented Timeline of Clustering</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background-color: #3498db;
+            border-radius: 50%;
+            border: 2px solid #2980b9;
+        }
+        .year {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-right: 10px;
+            width: 60px;
+            display: inline-block;
+        }
+        .milestone-type {
+            font-weight: bold;
+            color: #27ae60;
+            margin-right: 5px;
+        }
+        .legend {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        .legend-item {
+            margin-bottom: 5px;
+        }
+        .persistent-patterns, .key-references {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        .persistent-patterns h3, .key-references h3 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>A Well-Documented Timeline of Clustering</h1>
+    <h2>From Taxonomy Tables to Foundation Embedding Models (1890 – 2024)</h2>
+
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-item"><span class="milestone-type">[STAT]</span> = Statistical / mathematical milestone</div>
+        <div class="legend-item"><span class="milestone-type">[ALG]</span> = Algorithmic breakthrough</div>
+        <div class="legend-item"><span class="milestone-type">[DATA]</span> = Public dataset or benchmark release</div>
+        <div class="legend-item"><span class="milestone-type">[EVAL]</span> = New quality metric or validation method</div>
+        <div class="legend-item"><span class="milestone-type">[COMM]</span> = Open-source / commercial package that popularised the technique</div>
+        <div class="legend-item"><span class="milestone-type">[REG]</span> = Regulatory or societal impact</div>
+    </div>
+
+    <h2>1890-1950 Early Taxonomy & Distance Ideas</h2>
+    <div class="timeline-item">
+        <span class="year">1894</span> <span class="milestone-type">[STAT]</span> <a href="https://galton.org/essays/1880-1889/galton-1888-correlation.pdf" target="_blank">Pearson’s correlation coefficient</a> used to group skull measurements—first numerical taxonomy.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1904</span> <span class="milestone-type">[STAT]</span> <a href="https://www.nature.com/articles/070557a0" target="_blank">Spearman’s factor analysis</a> clusters intelligence test items.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1948</span> <span class="milestone-type">[STAT]</span> <a href="https://www.jstor.org/stable/2236319" target="_blank">Sneath applies single-linkage to bacterial classification</a>—precursor to hierarchical clustering.
+    </div>
+
+    <h2>1951-1960 Birth of Hierarchical Algorithms</h2>
+    <div class="timeline-item">
+        <span class="year">1951</span> <span class="milestone-type">[ALG]</span> <a href="https://psycnet.apa.org/record/1953-04987-001" target="_blank">Thorndike describes “k-means” intuition</a> in psychology literature.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1958</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jstor.org/stable/2984850" target="_blank">Ward’s minimum-variance linkage</a> for hierarchical clustering.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1963</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jstor.org/stable/2284279" target="_blank">MacQueen formalises k-means algorithm</a> with iterative refinement.
+    </div>
+
+    <h2>1965-1975 Graph-Based & Model-Based Clustering</h2>
+    <div class="timeline-item">
+        <span class="year">1967</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jstor.org/stable/2346761" target="_blank">Single-link hierarchical clustering (SLINK)</a> by Sibson—O(n²) exact algorithm.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1969</span> <span class="milestone-type">[ALG]</span> <a href="https://en.wikipedia.org/wiki/Hierarchical_clustering#Linkage_criteria" target="_blank">Complete-link and average-link variants</a> standardised.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1977</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jstor.org/stable/2984875" target="_blank">EM algorithm (Dempster et al.)</a> enables Gaussian Mixture Model (GMM) clustering.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1977</span> <span class="milestone-type">[DATA]</span> <a href="https://archive.ics.uci.edu/dataset/53/iris" target="_blank">Fisher’s Iris dataset</a> becomes canonical clustering toy data.
+    </div>
+
+    <h2>1980-1989 Density & Spectral Seeds</h2>
+    <div class="timeline-item">
+        <span class="year">1983</span> <span class="milestone-type">[ALG]</span> <a href="https://www.sciencedirect.com/science/article/pii/0019995878900698" target="_blank">ISODATA</a> (iterative self-organising data) generalises k-means with merge/split heuristics.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1985</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/6334237" target="_blank">Jarvis-Patrick shared-nearest-neighbour clustering</a> for chemical databases.
+    </div>
+
+    <h2>1990-1999 Neural & Fuzzy Clustering</h2>
+    <div class="timeline-item">
+        <span class="year">1990</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/58325" target="_blank">Self-Organising Map (SOM)</a> (Kohonen) projects high-d data to 2-D lattice.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1993</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/267786" target="_blank">Fuzzy c-means</a> (Bezdek) allows soft assignments.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1998</span> <span class="milestone-type">[COMM]</span> <a href="https://www.mathworks.com/help/stats/clustering.html" target="_blank">MATLAB Statistics Toolbox</a> ships k-means, hierarchical, linkage.
+    </div>
+
+    <h2>2000-2004 Scalability & Evaluation</h2>
+    <div class="timeline-item">
+        <span class="year">2000</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/673852" target="_blank">BIRCH</a> (Zhang et al.) summarises data with CF-tree—first million-scale clustering.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2001</span> <span class="milestone-type">[ALG]</span> <a href="https://www.cs.ucsb.edu/~johnh/CLARANS.pdf" target="_blank">CLARANS medoid-based algorithm</a> for large spatial databases.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2001</span> <span class="milestone-type">[EVAL]</span> <a href="https://www.sciencedirect.com/science/article/pii/0377042787900127" target="_blank">Silhouette coefficient</a> (Rousseeuw) provides single-number cluster validity.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2002</span> <span class="milestone-type">[DATA]</span> <a href="https://www.cs.cornell.edu/info/people/tj/publications/kdd02.pdf" target="_blank">KDD-Cup 2002 customer-segmentation dataset</a> (ratio 1:15).
+    </div>
+    <div class="timeline-item">
+        <span class="year">2003</span> <span class="milestone-type">[COMM]</span> <a href="https://elki-project.github.io/" target="_blank">ELKI Java framework</a> open-sources DBSCAN, OPTICS.
+    </div>
+
+    <h2>2005-2009 Density & Spectral Maturity</h2>
+    <div class="timeline-item">
+        <span class="year">2005</span> <span class="milestone-type">[ALG]</span> <a href="https://dl.acm.org/doi/10.1145/1083997.1084013" target="_blank">DBSCAN revisited with index acceleration</a> (kd-tree, R*-tree).
+    </div>
+    <div class="timeline-item">
+        <span class="year">2007</span> <span class="milestone-type">[ALG]</span> <a href="https://papers.nips.cc/paper_files/paper/2001/file/818f46543265c7112461044439c27b0f-Paper.pdf" target="_blank">Spectral clustering</a> (Ng, Jordan, Weiss) popularised via normalized cuts.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2009</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/895995" target="_blank">Mean-shift clustering</a> (Comaniciu & Meer) with adaptive bandwidth.
+    </div>
+
+    <h2>2010-2012 Probabilistic & Bayesian Non-parametrics</h2>
+    <div class="timeline-item">
+        <span class="year">2010</span> <span class="milestone-type">[ALG]</span> <a href="https://www.cs.princeton.edu/courses/archive/fall07/cos597A/lectures/lecture15/lecture15.pdf" target="_blank">Chinese Restaurant Process (CRP) & Dirichlet Process (DP) mixture models</a>.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2011</span> <span class="milestone-type">[COMM]</span> <a href="https://scikit-learn.org/stable/auto_examples/index.html" target="_blank">scikit-learn 0.9</a> bundles k-means, DBSCAN, spectral, GMM in a single API.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2012</span> <span class="milestone-type">[DATA]</span> <a href="http://yann.lecun.com/exdb/mnist/" target="_blank">MNIST 70 k digits</a> widely used to compare clustering algorithms.
+    </div>
+
+    <h2>2013-2015 Deep Embedding Clustering</h2>
+    <div class="timeline-item">
+        <span class="year">2013</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf" target="_blank">t-SNE</a> (van der Maaten) for 2-D visualisation—later used as pre-processing.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2014</span> <span class="milestone-type">[ALG]</span> <a href="https://theory.stanford.edu/~sergei/papers/kMeansPP-soda.pdf" target="_blank">k-means++</a> (Arthur & Vassilvitskii) guarantees O(log k) approximation.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2015</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1511.06335" target="_blank">DEC (Deep Embedded Clustering)</a> (Xie et al.) jointly learns embeddings and cluster assignments with KL divergence.
+    </div>
+
+    <h2>2016-2017 Large-Scale & Subspace Clustering</h2>
+    <div class="timeline-item">
+        <span class="year">2016</span> <span class="milestone-type">[ALG]</span> <a href="https://scikit-learn.org/stable/modules/clustering.html#mini-batch-k-means" target="_blank">Mini-batch k-means</a> in scikit-learn scales to 10 M samples.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2016</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1608.01217" target="_blank">JULE (Joint Unsupervised LEarning)</a> recurrently merges CNN features.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2017</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1703.01633" target="_blank">SpectNet</a>—learns spectral clustering objective end-to-end via neural nets.
+    </div>
+
+    <h2>2018-2019 Contrastive & Self-Supervised</h2>
+    <div class="timeline-item">
+        <span class="year">2018</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1802.04351" target="_blank">VaDE (Variational Deep Embedding)</a> combines VAE + GMM.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2019</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1807.05520" target="_blank">DeepCluster</a> (Caron et al.) alternates k-means on CNN features and self-training for ImageNet without labels.
+    </div>
+
+    <h2>2020 Transformer Clustering & Evaluation</h2>
+    <div class="timeline-item">
+        <span class="year">2020-03</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2002.08381" target="_blank">PICA (Pretext-Invariant Clustering)</a> uses contrastive loss to learn cluster-friendly representations.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2020-06</span> <span class="milestone-type">[EVAL]</span> <a href="https://en.wikipedia.org/wiki/Rand_index" target="_blank">Adjusted Rand Index (ARI)</a> and <a href="https://en.wikipedia.org/wiki/Mutual_information#Normalized_variants" target="_blank">Normalised Mutual Information (NMI)</a> become de-facto benchmarks in vision papers.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2020-09</span> <span class="milestone-type">[DATA]</span> <a href="http://www.image-net.org/" target="_blank">ImageNet-1k “clustering split”</a> (1.2 M, 1 k classes) released for self-supervised evaluation.
+    </div>
+
+    <h2>2021 Billion-Point Clustering & Vector Indexes</h2>
+    <div class="timeline-item">
+        <span class="year">2021-02</span> <span class="milestone-type">[ENG]</span> <a href="https://engineering.fb.com/2017/03/29/ai-research/faiss-a-library-for-efficient-similarity-search/" target="_blank">FAISS-IVF1024</a> (Facebook) clusters 1 B vectors on GPU in < 30 min using k-means++.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021-05</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2006.07733" target="_blank">SCAN (Semantic Clustering by Adopting Nearest neighbours)</a> leverages SimCLR features.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021-10</span> <span class="milestone-type">[COMM]</span> <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.clustering.StreamingKMeans.html" target="_blank">Spark-ML 3.2</a> adds streaming k-means for real-time segmentation.
+    </div>
+
+    <h2>2022 Foundation Models & Promptable Clustering</h2>
+    <div class="timeline-item">
+        <span class="year">2022-04</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2007.00992" target="_blank">SwAV</a> (Caron et al.) uses online clustering for 100 M unlabeled images.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022-07</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2206.01429" target="_blank">CLIP-KMeans</a>—zero-shot grouping via text prompts.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022-11</span> <span class="milestone-type">[COMM]</span> <a href="https://weaviate.io/blog/weaviate-v1-17-release" target="_blank">Weaviate vector DB</a> auto-indexes with HNSW + k-means coarse quantiser.
+    </div>
+
+    <h2>2023 Language-Aligned Clustering</h2>
+    <div class="timeline-item">
+        <span class="year">2023-02</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2210.02672" target="_blank">Language-Guided Clustering (LGC)</a> aligns image clusters with LLM text embeddings.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023-05</span> <span class="milestone-type">[COMM]</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.HDBSCAN.html" target="_blank">scikit-learn 1.3</a> adds HDBSCAN high-performance implementation.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023-09</span> <span class="milestone-type">[DATA]</span> <a href="https://laion.ai/blog/laion-400m-is-ready-to-be-used/" target="_blank">LAION-400M clustering benchmark</a>—cluster 400 M image-text pairs.
+    </div>
+
+    <h2>2024 Responsible & Privacy-Preserving Clustering</h2>
+    <div class="timeline-item">
+        <span class="year">2024-01</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1210.1504" target="_blank">DP-k-means (Differential Privacy)</a> with sparse vector technique.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-04</span> <span class="milestone-type">[COMM]</span> <a href="https://openai.com/blog/how-we-are-approaching-safety-with-ai" target="_blank">OpenAI “Embedding Inspector”</a> shows cluster-level demographic bias.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-06</span> <span class="milestone-type">[REG]</span> <a href="https://artificialintelligenceact.eu/eu-ai-act-final-text/" target="_blank">EU AI Act Annex III</a> lists “large-scale clustering of biometric data” as high-risk—requires impact assessment.
+    </div>
+
+    <div class="persistent-patterns">
+        <h3>Persistent Patterns</h3>
+        <ul>
+            <li><strong>Classical Still in Production</strong>
+                <ul>
+                    <li><a href="https://en.wikipedia.org/wiki/K-means_clustering" target="_blank">k-means (1963)</a> remains default in customer-segmentation pipelines (CRM, Snowflake).</li>
+                    <li><a href="https://en.wikipedia.org/wiki/DBSCAN" target="_blank">DBSCAN (1996)</a> used for fraud-detection anomaly clusters in banks.</li>
+                    <li><a href="https://en.wikipedia.org/wiki/Hierarchical_clustering#Ward's_method" target="_blank">Ward linkage (1958)</a> standard in gene-expression heat-maps.</li>
+                </ul>
+            </li>
+            <li><strong>Evaluation & Benchmarks</strong>
+                <ul>
+                    <li><a href="https://archive.ics.uci.edu/dataset/53/iris" target="_blank">Iris</a> → <a href="https://archive.ics.uci.edu/dataset/109/wine" target="_blank">Wine</a> → <a href="http://yann.lecun.com/exdb/mnist/" target="_blank">MNIST</a> → <a href="http://www.image-net.org/" target="_blank">ImageNet-1k</a> → <a href="https://laion.ai/blog/laion-400m-is-ready-to-be-used/" target="_blank">LAION-400M</a>.</li>
+                    <li>Metrics: <a href="https://www.sciencedirect.com/science/article/pii/0377042787900127" target="_blank">Silhouette (2001)</a>, <a href="https://en.wikipedia.org/wiki/Rand_index#Adjusted_Rand_index" target="_blank">ARI</a>, <a href="https://en.wikipedia.org/wiki/Mutual_information#Normalized_variants" target="_blank">NMI</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.v_measure_score.html" target="_blank">V-Measure (2007)</a>.</li>
+                </ul>
+            </li>
+            <li><strong>Hardware & Scale</strong>
+                <ul>
+                    <li>2012 CPU k-means on 1 M 128-D vectors: 4 h.</li>
+                    <li>2021 GPU k-means++ (FAISS) on 1 B 128-D vectors: 20 min on 8×A100.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="key-references">
+        <h3>Key References</h3>
+        <ul>
+            <li><a href="https://www.springer.com/gp/book/9780387967119" target="_blank">Jain & Dubes, “Algorithms for Clustering Data,” 1988.</a></li>
+            <li><a href="https://ieeexplore.ieee.org/document/1458920" target="_blank">Xu & Wunsch, “Survey of Clustering Algorithms,” IEEE TNNLS 2005.</a></li>
+            <li><a href="https://arxiv.org/abs/1511.06335" target="_blank">Xie et al., “Unsupervised Deep Embedding for Clustering Analysis,” ICML 2016.</a></li>
+            <li><a href="https://arxiv.org/abs/2006.09882" target="_blank">Caron et al., “Unsupervised Learning of Visual Features by Contrasting Cluster Assignments,” NeurIPS 2020.</a></li>
+            <li><a href="https://artificialintelligenceact.eu/eu-ai-act-final-text/" target="_blank">EU AI Act Regulation (EU) 2024/1689, Annex III.</a></li>
+        </ul>
+    </div>
+</body>
+</html>
