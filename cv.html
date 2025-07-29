@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Well-Documented Timeline of Computer Vision</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background-color: #3498db;
+            border-radius: 50%;
+            border: 2px solid #2980b9;
+        }
+        .year {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-right: 10px;
+            width: 60px;
+            display: inline-block;
+        }
+        .milestone-type {
+            font-weight: bold;
+            color: #27ae60;
+            margin-right: 5px;
+        }
+        .legend {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        .legend-item {
+            margin-bottom: 5px;
+        }
+        .persistent-patterns, .key-references {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        .persistent-patterns h3, .key-references h3 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>A Well-Documented Timeline of Computer Vision</h1>
+    <h2>From Hand-Coded Filters to Generative AI (1960-2024)</h2>
+
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-item"><span class="milestone-type">[EP]</span> = Engineering / Pattern-matching milestone</div>
+        <div class="legend-item"><span class="milestone-type">[ARCH]</span> = Architectural breakthrough</div>
+        <div class="legend-item"><span class="milestone-type">[DATA]</span> = Dataset or resource release</div>
+        <div class="legend-item"><span class="milestone-type">[ML]</span> = Machine-learning milestone</div>
+        <div class="legend-item"><span class="milestone-type">[COMM]</span> = Commercial or open-source release that changed adoption</div>
+        <div class="legend-item"><span class="milestone-type">[REG]</span> = Regulatory or societal impact</div>
+    </div>
+
+    <h2>1960-1969 Pixels, Edges, and Early Robots</h2>
+    <div class="timeline-item">
+        <span class="year">1963</span> <span class="milestone-type">[EP]</span> <a href="https://people.csail.mit.edu/brooks/schmitty.pdf" target="_blank">Roberts’ blocks-world vision system</a> at MIT Lincoln Lab extracts 3-D polyhedral edges from 2-D images.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1965</span> <span class="milestone-type">[EP]</span> Sobel & Feldman publish <a href="https://en.wikipedia.org/wiki/Sobel_operator" target="_blank">edge-detection operator</a> (Sobel filter).
+    </div>
+    <div class="timeline-item">
+        <span class="year">1966</span> <span class="milestone-type">[EP]</span> “<a href="https://www.cs.cmu.edu/~tsun/vision-project.html" target="_blank">Summer Vision Project</a>” (MIT) attempts to build a complete scene-description system—marks birth of CV as a field.
+    </div>
+
+    <h2>1970-1979 Feature Engineering & Geometric Vision</h2>
+    <div class="timeline-item">
+        <span class="year">1973</span> <span class="milestone-type">[EP]</span> Marr’s <a href="https://www.jstor.org/stable/2873130" target="_blank">primal sketch theory</a> (published 1976-80) formalizes edges, bars, blobs.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1975</span> <span class="milestone-type">[EP]</span> <a href="https://ieeexplore.ieee.org/document/4767855" target="_blank">Canny edge detector</a> (thesis 1983) sets standard for sub-pixel accuracy.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1977</span> <span class="milestone-type">[ARCH]</span> <a href="https://en.wikipedia.org/wiki/Scale-space" target="_blank">Scale-Space theory</a> (Witkin) enables multi-scale edge detection.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1979</span> <span class="milestone-type">[DATA]</span> “<a href="https://en.wikipedia.org/wiki/Blocks_world" target="_blank">Blocks World</a>” dataset (1970s) and <a href="https://www.nist.gov/document/nist-special-database-4-fingerprint-database" target="_blank">NIST fingerprint dataset</a> (1979) become early benchmarks.
+    </div>
+
+    <h2>1980-1989 Stereo, Optical Flow, and Early Learning</h2>
+    <div class="timeline-item">
+        <span class="year">1981</span> <span class="milestone-type">[EP]</span> <a href="https://www.cs.cmu.edu/~motion/papers/horn_schunck_81.pdf" target="_blank">Horn-Schunck optical flow algorithm</a>.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1982</span> <span class="milestone-type">[EP]</span> <a href="https://dspace.mit.edu/handle/1721.1/5598" target="_blank">Marr & Poggio stereo algorithm</a>.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1986</span> <span class="milestone-type">[ML]</span> <a href="https://www.cs.cmu.edu/~aharun/comp_vision_project/Fukushima80.pdf" target="_blank">Neocognitron</a> (Fukushima) introduces convolution and pooling—precursor to CNNs.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1989</span> <span class="milestone-type">[EP]</span> <a href="https://www.cs.ubc.ca/~lloyd/papers/snakes.pdf" target="_blank">Active contour (Snakes)</a> for segmentation (Kass, Witkin, Terzopoulos).
+    </div>
+
+    <h2>1990-1999 Statistical & Appearance-Based Methods</h2>
+    <div class="timeline-item">
+        <span class="year">1991</span> <span class="milestone-type">[ARCH]</span> <a href="https://vision.cse.psu.edu/Courses/CMU/CMU_Spring_2004/readings/turk-pentland.pdf" target="_blank">Eigenfaces</a> (Turk & Pentland) uses PCA for face recognition.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1995</span> <span class="milestone-type">[ML]</span> <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=WLp1c00AAAAJ&citation_for_view=WLp1c00AAAAJ:u-IgH3L6h9kC" target="_blank">Support Vector Machines (SVM)</a> applied to handwritten digits (LeCun et al.).
+    </div>
+    <div class="timeline-item">
+        <span class="year">1997</span> <span class="milestone-type">[DATA]</span> <a href="http://yann.lecun.com/exdb/mnist/" target="_blank">MNIST dataset</a> (60 k digits) released—becomes “Hello World” of CV.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1999</span> <span class="milestone-type">[EP]</span> <a href="https://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" target="_blank">SIFT</a> (Lowe) key-point descriptor—robust to scale, rotation, occlusion.
+    </div>
+
+    <h2>2000-2009 Sparse & Dense Features, Datasets, and GPUs</h2>
+    <div class="timeline-item">
+        <span class="year">2001</span> <span class="milestone-type">[EP]</span> <a href="https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-jones.pdf" target="_blank">Viola-Jones face detector</a>—Haar cascades → real-time frontal face detection in 2003 Digicams.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2003</span> <span class="milestone-type">[EP]</span> <a href="https://hal.science/hal-00346316/document" target="_blank">HOG (Histogram of Oriented Gradients)</a> pedestrian detector (Dalal & Triggs).
+    </div>
+    <div class="timeline-item">
+        <span class="year">2005</span> <span class="milestone-type">[DATA]</span> <a href="http://host.robots.ox.ac.uk/pascal/VOC/" target="_blank">PASCAL VOC</a> 2005–2012 challenges provide 20-class object detection benchmark.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2006</span> <span class="milestone-type">[ML]</span> <a href="https://www.mitpressjournals.org/doi/abs/10.1162/neco.2006.18.9.2393" target="_blank">Sparse coding</a> (Olshausen & Field) inspires unsupervised feature learning.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2008</span> <span class="milestone-type">[COMM]</span> <a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html" target="_blank">CUDA SDK 2.0</a> enables GPU acceleration—speeds up SIFT/HOG pipelines 10×.
+    </div>
+
+    <h2>2010-2012 Deep Learning Ignition</h2>
+    <div class="timeline-item">
+        <span class="year">2010</span> <span class="milestone-type">[DATA]</span> <a href="http://www.image-net.org/index" target="_blank">ImageNet</a> 1 k classes, 1.2 M images released.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2012</span> <span class="milestone-type">[ARCH]</span> <a href="https://proceedings.neurips.cc/paper/2012/file/c399862d3b4b600e12a386c4449753e7-Paper.pdf" target="_blank">AlexNet</a> (Krizhevsky et al.) wins ImageNet-2012 by 10.8 % margin—ReLU, Dropout, 2-GPU training.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2012</span> <span class="milestone-type">[COMM]</span> <a href="https://caffe.berkeleyvision.org/" target="_blank">Caffe framework</a> released (Jia et al.)—makes CNN training accessible.
+    </div>
+
+    <h2>2013-2014 Refining CNNs & Transfer Learning</h2>
+    <div class="timeline-item">
+        <span class="year">2013</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1311.2901" target="_blank">ZFNet</a> (Zeiler & Fergus) visualize CNN filters; confirms hierarchical features.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2014</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1409.1556" target="_blank">VGG-16/19</a> (Simonyan & Zisserman) show depth matters; 3×3 convolutions become standard.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2014</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1312.6229" target="_blank">OverFeat</a> (Sermanet) integrates detection + localization in single CNN.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2014</span> <span class="milestone-type">[DATA]</span> <a href="https://cocodataset.org/#home" target="_blank">MS-COCO dataset</a> released—300 k images with segmentation masks.
+    </div>
+
+    <h2>2015 Object Detection Revolution</h2>
+    <div class="timeline-item">
+        <span class="year">2015-04</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1506.01497" target="_blank">Faster R-CNN</a> (Ren et al.) introduces Region Proposal Network (RPN).
+    </div>
+    <div class="timeline-item">
+        <span class="year">2015-06</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1506.02640" target="_blank">YOLO v1</a> (Redmon et al.) single-shot real-time detector (45 FPS).
+    </div>
+    <div class="timeline-item">
+        <span class="year">2015-12</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1512.03385" target="_blank">ResNet-152</a> (He et al.) solves vanishing gradients with skip connections—ImageNet top-5 error 3.57 % (below human 5.1 %).
+    </div>
+
+    <h2>2016 Instance & Semantic Segmentation</h2>
+    <div class="timeline-item">
+        <span class="year">2016-05</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1411.4038" target="_blank">FCN</a> (Long et al.) fully convolutional networks for dense segmentation.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2016-05</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1703.06870" target="_blank">Mask R-CNN</a> (He et al.) adds instance segmentation branch—COCO mAP 37.1.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2016-11</span> <span class="milestone-type">[DATA]</span> <a href="https://www.cityscapes-dataset.com/" target="_blank">Cityscapes</a> (fine-grained urban segmentation) released.
+    </div>
+
+    <h2>2017 Mobile & Efficient Architectures</h2>
+    <div class="timeline-item">
+        <span class="year">2017-04</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1704.04861" target="_blank">MobileNet v1</a> (Howard et al.) depthwise separable convolutions for ARM CPUs.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2017-06</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1707.07012" target="_blank">NASNet</a>—Neural Architecture Search learns model topologies automatically.
+    </div>
+
+    <h2>2018 Self-Attention Meets Vision</h2>
+    <div class="timeline-item">
+        <span class="year">2018-06</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1709.01507" target="_blank">SENet</a> (Hu et al.) channel-wise attention improves ImageNet top-1 to 82.7 %.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2018-09</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1808.01244" target="_blank">CornerNet</a>—anchor-free keypoint detection.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2018-12</span> <span class="milestone-type">[DATA]</span> <a href="https://storage.googleapis.com/openimages/web/index.html" target="_blank">Open Images V4</a>—9 M images, 600 classes, 1.9 M object instances.
+    </div>
+
+    <h2>2019 3-D, Video, and Billion-Param CNNs</h2>
+    <div class="timeline-item">
+        <span class="year">2019-04</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2006.02334" target="_blank">DetectoRS</a> (Chen et al.) recursive feature pyramid + switchable Atrous Conv.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2019-05</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1905.11946" target="_blank">EfficientNet</a> (Tan & Le) compound scaling—achieves SOTA with 66 M params.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2019-10</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1812.03982" target="_blank">Slow-Fast networks</a> (Feichtenhofer) for video action recognition.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2019-11</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/1802.02611" target="_blank">DeepLab v3+</a> sets new PASCAL VOC segmentation mAP 89.0.
+    </div>
+
+    <h2>2020 Vision Transformers (ViT) & Self-Supervised Pre-training</h2>
+    <div class="timeline-item">
+        <span class="year">2020-05</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2005.12872" target="_blank">DETR</a> (Carion et al.)—transformer encoder/decoder for end-to-end object detection.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2020-10</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2010.11929" target="_blank">Vision Transformer (ViT)</a> (Dosovitskiy et al.)—patch-based, pure transformer matches CNN accuracy.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2020-11</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2011.10566" target="_blank">SimCLR v2</a> (Chen et al.) self-supervised pre-training reaches ImageNet top-1 79.8 % linear probe.
+    </div>
+
+    <h2>2021 Scaling, Multimodality, and Foundation Models</h2>
+    <div class="timeline-item">
+        <span class="year">2021-03</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2103.00020" target="_blank">CLIP</a> (Radford et al.)—contrastive pre-training on 400 M image-text pairs; enables zero-shot classification.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021-04</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2103.14030" target="_blank">Swin Transformer</a> hierarchical vision backbone.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021-07</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2102.12092" target="_blank">DALL-E</a> (Ramesh et al.) 12 B transformer generates images from text.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021-08</span> <span class="milestone-type">[DATA]</span> <a href="https://laion.ai/laion-400-m-open-dataset/" target="_blank">LAION-400 M</a> open image-text dataset released.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021-11</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2111.06377" target="_blank">MAE (Masked Autoencoders)</a> (He et al.) 75 % masking ratio revolutionizes self-supervised learning.
+    </div>
+
+    <h2>2022 Diffusion & Stable Diffusion</h2>
+    <div class="timeline-item">
+        <span class="year">2022-04</span> <span class="milestone-type">[ARCH]</span> <a href="https://openai.com/dall-e-2" target="_blank">DALL-E 2</a> (unCLIP) diffusion model with prior.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022-08</span> <span class="milestone-type">[COMM]</span> <a href="https://stability.ai/blog/stable-diffusion-public-release" target="_blank">Stable Diffusion v1.4</a> (Rombach et al.)—open-source latent diffusion; > 10 M downloads in 2 months.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022-10</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2304.02643" target="_blank">Segment Anything Model (SAM)</a> (Kirillov et al.) promptable segmentation across 1 B masks.
+    </div>
+
+    <h2>2023 Multimodal LLMs & 3-D Generation</h2>
+    <div class="timeline-item">
+        <span class="year">2023-03</span> <span class="milestone-type">[COMM]</span> <a href="https://openai.com/research/gpt-4" target="_blank">GPT-4V</a> (OpenAI) integrated vision encoder → chat with images.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023-04</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2301.12597" target="_blank">BLIP-2</a> bootstraps vision-language pre-training with frozen LLMs.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023-05</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2208.12242" target="_blank">DreamBooth</a> & <a href="https://arxiv.org/abs/2106.09685" target="_blank">LoRA</a> fine-tune diffusion models with 3-5 user images.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023-09</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2306.13686" target="_blank">3-D Gaussian Splatting</a> (Kerbl et al.)—real-time radiance field rendering.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023-11</span> <span class="milestone-type">[COMM]</span> <a href="https://deepmind.google/technologies/gemini/science/" target="_blank">Gemini 1.0</a> multimodal (text, image, video, audio).
+    </div>
+
+    <h2>2024 Frontier & Regulation</h2>
+    <div class="timeline-item">
+        <span class="year">2024-02</span> <span class="milestone-type">[ARCH]</span> <a href="https://openai.com/sora" target="_blank">Sora</a> (OpenAI) diffusion transformer for photorealistic video.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-03</span> <span class="milestone-type">[COMM]</span> <a href="https://stability.ai/news/stable-diffusion-3" target="_blank">Stable Diffusion 3</a> (MMDiT architecture) improves text rendering.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-05</span> <span class="milestone-type">[REG]</span> <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52021PC0206" target="_blank">EU AI Act</a> final text—foundation models >10²⁵ FLOPs face transparency & risk-assessment rules.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-06</span> <span class="milestone-type">[ARCH]</span> <a href="https://ai.meta.com/blog/llama-3-vision-encoder-open-source-multimodal-chatbots/" target="_blank">Llama-3 70 B vision encoder</a> enables open-source multimodal chatbots.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-07</span> <span class="milestone-type">[ARCH]</span> <a href="https://arxiv.org/abs/2406.01458" target="_blank">SAM-2</a> (video segmentation) extends promptable segmentation to dynamic scenes.
+    </div>
+
+    <div class="persistent-patterns">
+        <h3>Persistent Engineering Patterns</h3>
+        <ul>
+            <li><strong>Pre-processing Heuristics</strong>
+                <ul>
+                    <li>Canny/Sobel filters (1970s) still initialize edge maps in medical imaging pipelines.</li>
+                    <li>Histogram Equalization and CLAHE remain default in smartphone ISPs.</li>
+                </ul>
+            </li>
+            <li><strong>Evaluation Benchmarks</strong>
+                <ul>
+                    <li>ImageNet → COCO → Open Images → LVIS → SA-1B → GenAI benchmarks (DrawBench, DALL-Eval).</li>
+                </ul>
+            </li>
+            <li><strong>Hardware Inflection Points</strong>
+                <ul>
+                    <li>2008 CUDA → CNN training.</li>
+                    <li>2016 TPU v2 → 22 TFLOPs bfloat16 for ResNet-50 in 30 min.</li>
+                    <li>2023 NVIDIA H100 SXM5 → 989 TFLOPs FP8 → diffusion 512×512 in 0.3 s.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="key-references">
+        <h3>Key References</h3>
+        <ul>
+            <li><a href="http://szeliski.org/Book/" target="_blank">Szeliski, “Computer Vision: Algorithms and Applications” (2nd ed., 2022).</a></li>
+            <li><a href="https://www.nature.com/articles/nature14539" target="_blank">LeCun, Bengio, Hinton, “Deep Learning,” Nature 2015.</a></li>
+            <li><a href="https://arxiv.org/abs/2010.11929" target="_blank">Dosovitskiy et al., “An Image is Worth 16×16 Words,” ICLR 2021.</a></li>
+            <li><a href="https://arxiv.org/abs/2112.10752" target="_blank">Rombach et al., “High-Resolution Image Synthesis with Latent Diffusion Models,” CVPR 2022.</a></li>
+            <li><a href="https://arxiv.org/abs/2304.02643" target="_blank">Kirillov et al., “Segment Anything,” ICCV 2023.</a></li>
+        </ul>
+    </div>
+</body>
+</html>
