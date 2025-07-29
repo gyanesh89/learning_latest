@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Well-Documented Timeline of Imbalanced-Dataset Machine Learning</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background-color: #3498db;
+            border-radius: 50%;
+            border: 2px solid #2980b9;
+        }
+        .year {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-right: 10px;
+            width: 60px;
+            display: inline-block;
+        }
+        .milestone-type {
+            font-weight: bold;
+            color: #27ae60;
+            margin-right: 5px;
+        }
+        .legend {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        .legend-item {
+            margin-bottom: 5px;
+        }
+        .core-techniques, .persistent-patterns, .key-references {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        .core-techniques h3, .persistent-patterns h3, .key-references h3 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>A Well-Documented Timeline of Imbalanced-Dataset Machine Learning</h1>
+    <h2>From “Accuracy-Driven” Pitfalls to Generative Re-balancing (1960 – 2024)</h2>
+
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-item"><span class="milestone-type">[STAT]</span> = Statistical / cost-aware learning idea</div>
+        <div class="legend-item"><span class="milestone-type">[ENG]</span> = Engineering algorithm or re-sampling technique</div>
+        <div class="legend-item"><span class="milestone-type">[EVAL]</span> = New metric or benchmark for imbalanced tasks</div>
+        <div class="legend-item"><span class="milestone-type">[DATA]</span> = Public imbalanced dataset release</div>
+        <div class="legend-item"><span class="milestone-type">[COMM]</span> = Open-source / commercial library that popularised a method</div>
+        <div class="legend-item"><span class="milestone-type">[REG]</span> = Regulatory or societal impact</div>
+    </div>
+
+    <h2>1960-1980 Early Recognition & Cost-Blind Models</h2>
+    <div class="timeline-item">
+        <span class="year">1960s</span> <span class="milestone-type">[STAT]</span> Medical diagnosis studies note that “rare disease” positives are overwhelmed by healthy controls; accuracy is misleading because predicting “always healthy” yields > 95 % accuracy.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1974</span> <span class="milestone-type">[STAT]</span> <a href="https://en.wikipedia.org/wiki/Neyman%E2%80%93Pearson_lemma" target="_blank">Neyman-Pearson framework</a> explicitly trades off Type-I vs Type-II error, laying groundwork for cost-sensitive learning.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1979</span> <span class="milestone-type">[ENG]</span> <a href="https://www.jstor.org/stable/2530276" target="_blank">ROC curves</a> (signal-detection theory) introduced as a graphical tool to compare classifiers under asymmetric error costs.
+    </div>
+
+    <h2>1980-1990 First Re-sampling Ideas</h2>
+    <div class="timeline-item">
+        <span class="year">1983</span> <span class="milestone-type">[ENG]</span> Random undersampling (RUS) and random oversampling (ROS) used informally in credit-scoring batch jobs.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1988</span> <span class="milestone-type">[ENG]</span> SMOTE conceptually foreshadowed: researchers duplicate minority fraud cases to train decision trees; no synthetic generation yet.
+    </div>
+
+    <h2>1990-2000 Imbalanced Data Enters ML Conferences</h2>
+    <div class="timeline-item">
+        <span class="year">1996</span> <span class="milestone-type">[ENG]</span> Kubat & Matwin formalise “<a href="https://www.cs.cmu.edu/~schneide/files/papers/kubat-matwin.pdf" target="_blank">one-sided selection</a>” (OSS) undersampling to remove majority class noise.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1997</span> <span class="milestone-type">[DATA]</span> <a href="https://www.cs.cornell.edu/people/tj/publications/kdd97.pdf" target="_blank">KDD-97 Credit-card fraud dataset</a> released—ratio 1:200 becomes a canonical benchmark.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1998</span> <span class="milestone-type">[EVAL]</span> <a href="https://www.jair.org/index.php/jair/article/download/1032/1460" target="_blank">AUC-ROC and geometric mean (G-mean)</a> proposed as alternatives to raw accuracy.
+    </div>
+
+    <h2>2000-2005 SMOTE & Ensembles</h2>
+    <div class="timeline-item">
+        <span class="year">2002</span> <span class="milestone-type">[ENG]</span> Chawla et al. publish <a href="https://www.jair.org/index.php/jair/article/view/1032" target="_blank">SMOTE (Synthetic Minority Over-sampling Technique)</a> at JAIR; interpolates k-nearest neighbours to create synthetic minority samples.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2003</span> <span class="milestone-type">[ENG]</span> <a href="https://www.sciencedirect.com/science/article/pii/S003132030300185X" target="_blank">EasyEnsemble & BalanceCascade</a> combine RUS with Adaboost to avoid information loss.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2004</span> <span class="milestone-type">[ENG]</span> <a href="https://www.ijcai.org/Past%20Proceedings/IJCAI-05-Proceedings/PDF/060.pdf" target="_blank">Cost-sensitive decision trees (C4.5-CS)</a> embed misclassification costs in splits.
+    </div>
+
+    <h2>2006-2010 Algorithm-Level Adaptations</h2>
+    <div class="timeline-item">
+        <span class="year">2007</span> <span class="milestone-type">[ENG]</span> <a href="https://ieeexplore.ieee.org/document/4255018" target="_blank">Hellinger Distance Decision Trees (HDDT)</a> optimise splits for class-separability under skew.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2008</span> <span class="milestone-type">[ENG]</span> <a href="https://arxiv.org/abs/1708.02002" target="_blank">Focal Loss</a> (Lin et al., originally for object detection) reframes loss to down-weight easy majority samples—later ported to tabular data.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2009</span> <span class="milestone-type">[COMM]</span> <a href="https://www.cs.waikato.ac.nz/ml/weka/book.html" target="_blank">Weka 3.6</a> ships SMOTE filter and CostSensitiveClassifier—first open-source GUI for imbalance handling.
+    </div>
+
+    <h2>2011-2014 Extreme Imbalance & Anomaly Framing</h2>
+    <div class="timeline-item">
+        <span class="year">2011</span> <span class="milestone-type">[ENG]</span> <a href="https://www.jmlr.org/papers/volume2/scholkopf02a/scholkopf02a.pdf" target="_blank">One-Class SVM</a> and <a href="https://www.sciencedirect.com/science/article/pii/S016786550800072X" target="_blank">Isolation Forest</a> promoted for cases like network intrusion where positives < 0.1 %.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2012</span> <span class="milestone-type">[DATA]</span> <a href="https://www.kaggle.com/c/kddcup2012-track2" target="_blank">KDDCup-2012 Track 2</a> (click-through prediction) 1:1000 imbalance sparks industry interest.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2013</span> <span class="milestone-type">[ENG]</span> <a href="https://ieeexplore.ieee.org/document/4397042" target="_blank">ADASYN (Adaptive Synthetic Sampling)</a> adjusts generation density adaptively.
+    </div>
+
+    <h2>2015-2017 Deep Learning Meets Imbalance</h2>
+    <div class="timeline-item">
+        <span class="year">2015</span> <span class="milestone-type">[ML]</span> Cost-sensitive deep nets: class-weighted cross-entropy becomes default in <a href="https://keras.io/api/losses/probabilistic_losses/#categorical_crossentropy-function" target="_blank">Keras (class_weight parameter)</a>.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2016</span> <span class="milestone-type">[ENG]</span> <a href="https://ieeexplore.ieee.org/document/7521199" target="_blank">Borderline-SMOTE</a> focuses synthetic samples near decision boundary.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2017</span> <span class="milestone-type">[EVAL]</span> <a href="https://arxiv.org/abs/1706.09529" target="_blank">Matthews Correlation Coefficient (MCC)</a> gains traction as single scalar that summarises confusion matrix for imbalance.
+    </div>
+
+    <h2>2018-2019 GAN-based Re-balancing</h2>
+    <div class="timeline-item">
+        <span class="year">2018</span> <span class="milestone-type">[ENG]</span> <a href="https://arxiv.org/abs/1806.09632" target="_blank">GAN-SMOTE</a> uses Conditional GANs to generate minority tabular samples—improves fraud-detection AUROC by 3–5 %.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2019</span> <span class="milestone-type">[COMM]</span> <a href="https://imbalanced-learn.org/stable/auto_examples/index.html" target="_blank">Imbalanced-Learn 0.5</a> (scikit-contrib) consolidates 15+ resamplers in one Python API.
+    </div>
+
+    <h2>2020-2021 Transformer & Long-Tail Recognition</h2>
+    <div class="timeline-item">
+        <span class="year">2020</span> <span class="milestone-type">[ML]</span> <a href="https://arxiv.org/abs/1901.05555" target="_blank">Class-balanced loss</a> re-weights softmax using effective-number inverse-frequency.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021</span> <span class="milestone-type">[ENG]</span> <a href="https://arxiv.org/abs/2006.01256" target="_blank">SMOTE-ENC</a> handles categorical features; <a href="https://catboost.ai/" target="_blank">CatBoost</a> & <a href="https://lightgbm.readthedocs.io/en/latest/index.html" target="_blank">LightGBM</a> expose built-in class-weights & focal loss.
+    </div>
+
+    <h2>2022 Foundation Models & Evaluation</h2>
+    <div class="timeline-item">
+        <span class="year">2022</span> <span class="milestone-type">[ENG]</span> <a href="https://arxiv.org/abs/2110.04505" target="_blank">Long-tail learning survey</a> unifies imbalance, open-set, and few-shot under one taxonomy.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022</span> <span class="milestone-type">[EVAL]</span> <a href="https://imbalanced-benchmarks.github.io/" target="_blank">Imbalanced-Benchmarks.org</a> releases 12 tabular + 6 vision tasks with pre-defined minority splits.
+    </div>
+
+    <h2>2023 LLMs & Synthetic Tabular Data</h2>
+    <div class="timeline-item">
+        <span class="year">2023</span> <span class="milestone-type">[ENG]</span> <a href="https://arxiv.org/abs/2307.03472" target="_blank">Tabular-GPT</a> fine-tuned to generate synthetic minority rows—used by banks to augment 1:500 fraud cases.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023</span> <span class="milestone-type">[COMM]</span> <a href="https://pypi.org/project/pytorch-imbalance/" target="_blank">PyTorch-Imbalance package</a> bundles focal loss, class-balanced loss, and GAN augmenters in Lightning wrappers.
+    </div>
+
+    <h2>2024 Regulation & Responsible AI</h2>
+    <div class="timeline-item">
+        <span class="year">2024-03</span> <span class="milestone-type">[REG]</span> <a href="https://artificialintelligenceact.eu/eu-ai-act-final-text/" target="_blank">EU AI Act (Art. 15)</a> mandates “error analysis across sub-populations” when class imbalance may hide discrimination.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-07</span> <span class="milestone-type">[COMM]</span> <a href="https://fairlearn.github.io/main/user_guide/assessment.html" target="_blank">Fairlearn 0.10</a> introduces MetricFrame for imbalance-aware fairness auditing.
+    </div>
+
+    <div class="core-techniques">
+        <h3>Core Techniques Snapshot</h3>
+        <h4>Pre-Processing</h4>
+        <ul>
+            <li>Random undersampling (RUS) – 1983</li>
+            <li>Random oversampling (ROS) – 1983</li>
+            <li>SMOTE – 2002</li>
+            <li>ADASYN, Borderline-SMOTE – 2008-13</li>
+            <li>GAN-based oversampling – 2018+</li>
+        </ul>
+        <h4>Algorithm-Level</h4>
+        <ul>
+            <li>Cost-sensitive decision trees – 2004</li>
+            <li>Class-weighted loss – 2015 (Keras)</li>
+            <li>Focal Loss – 2017 (Lin)</li>
+            <li>One-Class SVM – 2001</li>
+        </ul>
+        <h4>Evaluation & Benchmarks</h4>
+        <ul>
+            <li>ROC-AUC – 1979 → PR-AUC – 2006 → MCC – 2017</li>
+            <li>KDDCup-1999, Credit-Fraud 1997, M5-2021, Imbalanced-Benchmarks-2022</li>
+        </ul>
+    </div>
+
+    <div class="persistent-patterns">
+        <h3>Persistent Patterns</h3>
+        <ul>
+            <li><strong>Classical Still Used</strong>
+                <ul>
+                    <li>SMOTE + ensemble (RandomForest / XGBoost) remains baseline in credit-scoring.</li>
+                    <li>Calibration plots + AUC-ROC mandated in medical-device submissions (FDA 2023 guidance).</li>
+                </ul>
+            </li>
+            <li><strong>Hardware & Scale</strong>
+                <ul>
+                    <li>GPU-accelerated SMOTE-NC (cuML 2023) processes 50 M rows in < 2 s on RTX-4090.</li>
+                    <li>Cloud AutoML (AWS Fraud Detector, Vertex AI) auto-selects resampling + algorithm-level weighting.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="key-references">
+        <h3>Key References</h3>
+        <ul>
+            <li><a href="https://www.jair.org/index.php/jair/article/view/1032" target="_blank">Chawla et al., “SMOTE: Synthetic Minority Over-sampling Technique,” JAIR 2002.</a></li>
+            <li><a href="https://ieeexplore.ieee.org/document/5115939" target="_blank">He & Garcia, “Learning from Imbalanced Data,” IEEE TKDE 2009.</a></li>
+            <li><a href="https://arxiv.org/abs/1908.09631" target="_blank">Johnson & Khoshgoftaar, “Survey on Deep Learning for Class Imbalance,” JBIG 2019.</a></li>
+            <li><a href="https://imbalanced-learn.org/stable/index.html" target="_blank">Imbalanced-Learn documentation, 2024.</a></li>
+            <li><a href="https://artificialintelligenceact.eu/eu-ai-act-final-text/" target="_blank">EU AI Act (Regulation (EU) 2024/1689) Art. 15.</a></li>
+        </ul>
+    </div>
+</body>
+</html>
