@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MLOps Guide</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font and basic layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f4f8; /* Light background */
+            margin: 0;
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2.5rem; /* Increased padding */
+            border-radius: 1.5rem; /* More rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            text-align: center;
+            max-width: 90%; /* Max width for responsiveness */
+            width: 500px; /* Fixed width for larger screens */
+        }
+        .button-link {
+            display: inline-block; /* Allows padding and margin */
+            background-image: linear-gradient(to right, #6366f1, #8b5cf6); /* Gradient background */
+            color: white;
+            padding: 1rem 2rem; /* Larger padding for better touch target */
+            border-radius: 0.75rem; /* Rounded button corners */
+            text-decoration: none; /* Remove underline from link */
+            font-weight: 600; /* Semi-bold text */
+            font-size: 1.125rem; /* Larger font size */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for hover effects */
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); /* Shadow for button */
+        }
+        .button-link:hover {
+            transform: translateY(-3px); /* Lift effect on hover */
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5); /* Enhanced shadow on hover */
+        }
+        h1 {
+            color: #1a202c; /* Darker text for heading */
+            margin-bottom: 1.5rem; /* Space below heading */
+            font-size: 2.25rem; /* Larger heading */
+            font-weight: 700; /* Bold heading */
+        }
+        p {
+            color: #4a5568; /* Slightly lighter text for paragraph */
+            margin-bottom: 2rem; /* Space below paragraph */
+            font-size: 1.125rem; /* Larger paragraph text */
+            line-height: 1.6; /* Better readability */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.5rem; /* Reduce padding on small screens */
+            }
+            h1 {
+                font-size: 1.75rem; /* Adjust heading size */
+            }
+            p {
+                font-size: 1rem; /* Adjust paragraph size */
+            }
+            .button-link {
+                padding: 0.8rem 1.5rem; /* Adjust button padding */
+                font-size: 1rem; /* Adjust button font size */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Your MLOps Journey!</h1>
+        <p>Click the button below to explore the MLOps documentation and learn more about Machine Learning Operations.</p>
+        <a href="mlops.html" class="button-link">Go to MLOps Guide</a>
+    </div>
+</body>
+</html>
