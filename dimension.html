@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Well-Documented Timeline of Dimension-Reduction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background-color: #3498db;
+            border-radius: 50%;
+            border: 2px solid #2980b9;
+        }
+        .year {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-right: 10px;
+            width: 60px;
+            display: inline-block;
+        }
+        .milestone-type {
+            font-weight: bold;
+            color: #27ae60;
+            margin-right: 5px;
+        }
+        .legend {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        .legend-item {
+            margin-bottom: 5px;
+        }
+        .core-techniques, .persistent-patterns, .key-references {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        .core-techniques h3, .persistent-patterns h3, .key-references h3 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>A Well-Documented Timeline of Dimension-Reduction</h1>
+    <h2>From 2-D Scatter Plots to Generative Latent Models (1886 – 2024)</h2>
+
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-item"><span class="milestone-type">[STAT]</span> = Statistical / mathematical milestone</div>
+        <div class="legend-item"><span class="milestone-type">[ALG]</span> = Algorithmic breakthrough</div>
+        <div class="legend-item"><span class="milestone-type">[DATA]</span> = Public dataset or benchmark release</div>
+        <div class="legend-item"><span class="milestone-type">[EVAL]</span> = New quality metric or validation method</div>
+        <div class="legend-item"><span class="milestone-type">[COMM]</span> = Open-source / commercial package that popularised the technique</div>
+        <div class="legend-item"><span class="milestone-type">[REG]</span> = Regulatory or societal impact</div>
+    </div>
+
+    <h2>1886-1940 Early Geometric Intuition</h2>
+    <div class="timeline-item">
+        <span class="year">1886</span> <span class="milestone-type">[STAT]</span> <a href="https://galton.org/essays/1880-1889/galton-1888-correlation.pdf" target="_blank">Galton’s correlation ellipse and 2-D regression lines</a>—first visual “dimension collapse.”
+    </div>
+    <div class="timeline-item">
+        <span class="year">1901</span> <span class="milestone-type">[STAT]</span> Karl Pearson invents <a href="https://royalsocietypublishing.org/doi/pdf/10.1098/rsla.1901.0022" target="_blank">Principal Component Analysis (PCA)</a> as a least-squares line fitting in p-D.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1933</span> <span class="milestone-type">[STAT]</span> <a href="https://www.jstor.org/stable/2290318" target="_blank">Hotelling generalises PCA to “Hotelling transform”</a> (canonical correlation).
+    </div>
+
+    <h2>1941-1959 Factor & Multidimensional Scaling</h2>
+    <div class="timeline-item">
+        <span class="year">1941</span> <span class="milestone-type">[STAT]</span> <a href="https://www.jstor.org/stable/2235948" target="_blank">Thurstone’s factor analysis</a> separates common vs unique variance.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1952</span> <span class="milestone-type">[ALG]</span> <a href="https://psycnet.apa.org/record/1953-04987-001" target="_blank">Classical MDS (Torgerson)</a> reconstructs Euclidean coordinates from pairwise distances.
+    </div>
+
+    <h2>1960-1969 Non-linear & Manifold Seeds</h2>
+    <div class="timeline-item">
+        <span class="year">1964</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jstor.org/stable/2283311" target="_blank">Shepard-Kruskal non-metric MDS</a> relaxes distance monotonicity.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1969</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/4255018" target="_blank">Sammon mapping</a> preserves local inter-point distances.
+    </div>
+
+    <h2>1970-1979 Linear Algebra & Feature Selection</h2>
+    <div class="timeline-item">
+        <span class="year">1971</span> <span class="milestone-type">[ALG]</span> <a href="https://www.cscjournals.com/manuscript/Journals/IJCSI/volume4/Issue4/IJCSI-74.pdf" target="_blank">Linear Discriminant Analysis (LDA)</a> (Fisher 1936) rediscovered for supervised dimension reduction.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1977</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jstor.org/stable/2347521" target="_blank">Projection Pursuit</a> (Friedman & Tukey) seeks “interesting” low-D projections.
+    </div>
+
+    <h2>1980-1989 Neural & Probabilistic Views</h2>
+    <div class="timeline-item">
+        <span class="year">1982</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/58325" target="_blank">Kohonen Self-Organising Map (SOM)</a> creates 2-D lattice from high-D data.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1986</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/6227692" target="_blank">Auto-associative neural networks</a> (Bourlard & Kamp) show 3-layer nets learn PCA subspace.
+    </div>
+
+    <h2>1991-1999 Kernel & Spectral Breakthroughs</h2>
+    <div class="timeline-item">
+        <span class="year">1991</span> <span class="milestone-type">[ALG]</span> <a href="https://ieeexplore.ieee.org/document/700878" target="_blank">Kernel PCA</a> (Schölkopf et al.) non-linearly maps via implicit feature space.
+    </div>
+    <div class="timeline-item">
+        <span class="year">1998</span> <span class="milestone-type">[ALG]</span> <a href="https://www.science.org/doi/abs/10.1126/science.290.5500.2319" target="_blank">Isomap</a> (Tenenbaum et al.) geodesic manifold unfolding.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2000</span> <span class="milestone-type">[ALG]</span> <a href="https://www.science.org/doi/abs/10.1126/science.290.5500.2323" target="_blank">Locally Linear Embedding (LLE)</a> (Roweis & Saul) preserves local linear weights.
+    </div>
+
+    <h2>2001-2004 Probabilistic PCA & Graphical Models</h2>
+    <div class="timeline-item">
+        <span class="year">2001</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jmlr.org/papers/volume2/tipping01a/tipping01a.pdf" target="_blank">Probabilistic PCA</a> (Tipping & Bishop) casts PCA as EM for latent-variable model.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2002</span> <span class="milestone-type">[ALG]</span> <a href="https://papers.nips.cc/paper_files/paper/2001/file/818f46543265c7112461044439c27b0f-Paper.pdf" target="_blank">Laplacian Eigenmaps</a> (Belkin & Niyogi) use graph Laplacian.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2003</span> <span class="milestone-type">[COMM]</span> <a href="https://www.mathworks.com/help/stats/dimension-reduction.html" target="_blank">MATLAB “mdscale” and “princomp” functions</a> ship.
+    </div>
+
+    <h2>2005-2009 Large-Scale & Sparse PCA</h2>
+    <div class="timeline-item">
+        <span class="year">2005</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jstor.org/stable/40068461" target="_blank">Sparse PCA</a> (Zou et al.) via LASSO—interpretable loadings.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2006</span> <span class="milestone-type">[ALG]</span> <a href="https://en.wikipedia.org/wiki/Johnson%E2%80%93Lindenstrauss_lemma" target="_blank">Random Projection (Johnson-Lindenstrauss)</a> shown to preserve ℓ₂ distances for big data.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2008</span> <span class="milestone-type">[COMM]</span> <a href="https://scikit-learn.org/stable/modules/decomposition.html" target="_blank">scikit-learn 0.6</a> bundles PCA, Kernel-PCA, LDA, Isomap.
+    </div>
+
+    <h2>2010-2012 Autoencoders & Deep Subspace</h2>
+    <div class="timeline-item">
+        <span class="year">2010</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jmlr.org/papers/volume11/vincent10a/vincent10a.pdf" target="_blank">Denoising Autoencoder</a> (Vincent et al.) learns robust low-D representations.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2011</span> <span class="milestone-type">[ALG]</span> <a href="https://papers.nips.cc/paper_files/paper/2011/file/f01a357467e27e8574167e41b2dc8d65-Paper.pdf" target="_blank">Contractive Autoencoder</a> (Rifai et al.) adds Jacobian penalty.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2012</span> <span class="milestone-type">[DATA]</span> <a href="https://arxiv.org/abs/1403.5417" target="_blank">ImageNet 1 k latent features (DeCAF)</a> become standard downstream input.
+    </div>
+
+    <h2>2013-2014 Stochastic & Variational</h2>
+    <div class="timeline-item">
+        <span class="year">2013</span> <span class="milestone-type">[ALG]</span> <a href="https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf" target="_blank">t-SNE</a> (van der Maaten & Hinton) visualises high-D clusters in 2-D.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2014</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1312.6114" target="_blank">Variational Autoencoder (VAE)</a> (Kingma & Welling) provides generative latent space with uncertainty estimates.
+    </div>
+
+    <h2>2015-2016 Non-linear & Supervised DR</h2>
+    <div class="timeline-item">
+        <span class="year">2015</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1506.01786" target="_blank">LargeVis</a> (Tang et al.) scales t-SNE to millions of points.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2016</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1802.03426" target="_blank">UMAP</a> (McInnes et al.) preserves topological structure, O(n log n) complexity.
+    </div>
+
+    <h2>2017-2018 Adversarial & Disentangled</h2>
+    <div class="timeline-item">
+        <span class="year">2017</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1606.05908" target="_blank">β-VAE</a> (Higgins et al.) encourages disentangled factors.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2018</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1511.05644" target="_blank">Adversarial Autoencoder (AAE)</a> (Makhzani et al.) matches latent prior via GAN.
+    </div>
+
+    <h2>2019 Transformer & Self-Supervised</h2>
+    <div class="timeline-item">
+        <span class="year">2019-05</span> <span class="milestone-type">[ALG]</span> <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">BERT embedding</a> → PCA/ UMAP for document visualisation.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2019-10</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1802.05983" target="_blank">FactorVAE</a> and <a href="https://arxiv.org/abs/1606.03657" target="_blank">InfoGAN</a> achieve controllable latent directions.
+    </div>
+
+    <h2>2020 Contrastive & InfoMax</h2>
+    <div class="timeline-item">
+        <span class="year">2020-02</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2002.05709" target="_blank">SimCLR</a> uses nonlinear projection head → PCA/UMAP for inspection.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2020-06</span> <span class="milestone-type">[COMM]</span> <a href="https://engineering.fb.com/2017/03/29/ai-research/faiss-a-library-for-efficient-similarity-search/" target="_blank">Facebook Faiss-IVF-PQ</a> compresses 128-D vectors to 64 bytes for billion-scale retrieval.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2020-11</span> <span class="milestone-type">[EVAL]</span> <a href="https://arxiv.org/abs/1907.00936" target="_blank">Latent Space Disentanglement score (DCI, SAP)</a> standardised.
+    </div>
+
+    <h2>2021 Billion-Point Visualisation</h2>
+    <div class="timeline-item">
+        <span class="year">2021-01</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1903.02100" target="_blank">Parametric t-SNE (pt-SNE)</a> trains neural net to map data directly to 2-D.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021-05</span> <span class="milestone-type">[COMM]</span> <a href="https://developer.nvidia.com/rapids/cuml" target="_blank">RAPIDS cuML UMAP on GPU</a> processes 50 M points in < 2 min on 8×A100.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2021-09</span> <span class="milestone-type">[DATA]</span> <a href="https://pages.semanticscholar.org/cord19/" target="_blank">CORD-19 embeddings</a> (135 M abstracts) released for COVID research.
+    </div>
+
+    <h2>2022 Diffusion & Latent Generative</h2>
+    <div class="timeline-item">
+        <span class="year">2022-04</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2112.10752" target="_blank">Stable Diffusion autoencoder latent</a> (4×64×64) becomes de-facto perceptual space for generation.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022-08</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2112.10752" target="_blank">Latent Diffusion Models</a> reuse pre-trained VAE latent for fast training.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022-11</span> <span class="milestone-type">[EVAL]</span> <a href="https://arxiv.org/abs/1705.07177" target="_blank">Poincaré score</a> measures hyperbolic embedding quality.
+    </div>
+
+    <h2>2023 Large Language & Joint Latent Spaces</h2>
+    <div class="timeline-item">
+        <span class="year">2023-02</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2302.09117" target="_blank">LLM2Vec</a> freezes transformer, applies PCA to 4 k-D contextual embeddings.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023-05</span> <span class="milestone-type">[COMM]</span> <a href="https://www.langchain.com/" target="_blank">LangChain + UMAP</a> visualise 1 M chatbot queries in real time.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023-09</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/2202.10427" target="_blank">Diffusion VAE (DVAE)</a> learns continuous latent for tabular data.
+    </div>
+
+    <h2>2024 Privacy-Preserving & Regulation</h2>
+    <div class="timeline-item">
+        <span class="year">2024-01</span> <span class="milestone-type">[ALG]</span> <a href="https://arxiv.org/abs/1210.1504" target="_blank">DP-PCA (Differential Privacy)</a> with sparse vector technique.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-03</span> <span class="milestone-type">[REG]</span> <a href="https://artificialintelligenceact.eu/eu-ai-act-final-text/" target="_blank">EU AI Act Annex III</a> cites “high-risk” biometric identification systems must document dimensionality reduction steps for privacy.
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024-06</span> <span class="milestone-type">[COMM]</span> <a href="https://scikit-learn.org/stable/modules/decomposition.html#incremental-pca" target="_blank">scikit-learn 1.5</a> adds randomized SVD for incremental PCA on streaming data.
+    </div>
+
+    <div class="core-techniques">
+        <h3>Core Techniques Snapshot</h3>
+        <h4>Linear</h4>
+        <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank">PCA (1901)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Linear_discriminant_analysis" target="_blank">LDA (1936)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Independent_component_analysis" target="_blank">ICA (1994)</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Random_projection" target="_blank">Random Projection (2006)</a></li>
+        </ul>
+        <h4>Non-linear Manifold</h4>
+        <ul>
+            <li><a href="https://www.science.org/doi/abs/10.1126/science.290.5500.2319" target="_blank">Isomap (1998)</a></li>
+            <li><a href="https://www.science.org/doi/abs/10.1126/science.290.5500.2323" target="_blank">LLE (2000)</a></li>
+            <li><a href="https://papers.nips.cc/paper_files/paper/2001/file/818f46543265c7112461044439c27b0f-Paper.pdf" target="_blank">Laplacian Eigenmaps (2002)</a></li>
+            <li><a href="https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf" target="_blank">t-SNE (2008)</a></li>
+            <li><a href="https://arxiv.org/abs/1802.03426" target="_blank">UMAP (2016)</a></li>
+        </ul>
+        <h4>Neural / Generative</h4>
+        <ul>
+            <li><a href="https://ieeexplore.ieee.org/document/6227692" target="_blank">Autoencoder (1986)</a></li>
+            <li><a href="https://arxiv.org/abs/1312.6114" target="_blank">VAE (2014)</a></li>
+            <li><a href="https://arxiv.org/abs/1606.05908" target="_blank">β-VAE (2017)</a></li>
+            <li><a href="https://arxiv.org/abs/2202.10427" target="_blank">Diffusion-VAE (2023)</a></li>
+        </ul>
+        <h4>Evaluation Metrics</h4>
+        <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Reconstruction_error" target="_blank">Reconstruction Error</a></li>
+            <li><a href="https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf" target="_blank">Trustworthiness, Continuity</a></li>
+            <li><a href="https://www.sciencedirect.com/science/article/pii/0377042787900127" target="_blank">Silhouette</a></li>
+            <li><a href="https://arxiv.org/abs/1907.00936" target="_blank">DCI</a></li>
+            <li><a href="https://arxiv.org/abs/1705.07177" target="_blank">Poincaré Score</a></li>
+        </ul>
+    </div>
+
+    <div class="persistent-patterns">
+        <h3>Persistent Patterns</h3>
+        <ul>
+            <li><strong>Classical Still in Production</strong>
+                <ul>
+                    <li><a href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank">PCA whitening</a> remains default pre-processing for CNN features.</li>
+                    <li><a href="https://en.wikipedia.org/wiki/Random_projection" target="_blank">Random projection</a> used in Facebook Faiss & Spotify ANN indexes.</li>
+                </ul>
+            </li>
+            <li><strong>Hardware & Scale</strong>
+                <ul>
+                    <li>2012 CPU PCA on 1 M × 256: 15 min.</li>
+                    <li>2024 GPU Randomized PCA (RAPIDS) on 100 M × 512: 45 s.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="key-references">
+        <h3>Key References</h3>
+        <ul>
+            <li><a href="https://www.springer.com/gp/book/9780387224401" target="_blank">Jolliffe, “Principal Component Analysis,” 2nd ed., 2002.</a></li>
+            <li><a href="https://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf" target="_blank">van der Maaten & Hinton, “Visualizing Data using t-SNE,” JMLR 2008.</a></li>
+            <li><a href="https://joss.theoj.org/papers/10.21105/joss.00861" target="_blank">McInnes et al., “UMAP: Uniform Manifold Approximation,” JOSS 2018.</a></li>
+            <li><a href="https://arxiv.org/abs/1312.6114" target="_blank">Kingma & Welling, “Auto-Encoding Variational Bayes,” ICLR 2014.</a></li>
+            <li><a href="https://artificialintelligenceact.eu/eu-ai-act-final-text/" target="_blank">EU AI Act Regulation (EU) 2024/1689, Annex III.</a></li>
+        </ul>
+    </div>
+</body>
+</html>
