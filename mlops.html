@@ -1,0 +1,778 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DevOps to LLMOps: A Comprehensive Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Crimson Text', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'sage': '#9CAF88',
+                        'clay': '#D4A574',
+                        'stone': '#8B8680',
+                        'cream': '#F5F3F0',
+                        'charcoal': '#2D3748',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(156, 175, 136, 0.9), rgba(212, 165, 116, 0.8));
+        }
+        .toc-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 280px;
+            background: rgba(245, 243, 240, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 50;
+            overflow-y: auto;
+            border-right: 1px solid rgba(156, 175, 136, 0.2);
+        }
+        .content-wrapper {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(156, 175, 136, 0.3), transparent);
+            margin: 4rem 0;
+        }
+        .interactive-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(156, 175, 136, 0.1);
+        }
+        .interactive-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(156, 175, 136, 0.15);
+            border-color: rgba(156, 175, 136, 0.3);
+        }
+        .citation-link {
+            color: #9CAF88;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #9CAF88;
+        }
+        .citation-link:hover {
+            color: #7A8F6B;
+            border-bottom-color: #7A8F6B;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            align-items: start;
+        }
+        .bento-item {
+            background: rgba(245, 243, 240, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(156, 175, 136, 0.15);
+            word-wrap: break-word;
+        }
+        @media (max-width: 768px) {
+            .toc-fixed {
+                display: none;
+            }
+            .content-wrapper {
+                margin-left: 0;
+            }
+            .bento-item {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+  </head>
+
+  <body class="bg-cream text-charcoal font-sans">
+    <!-- Fixed Table of Contents -->
+    <nav class="toc-fixed">
+      <div class="p-6">
+        <h3 class="text-lg font-serif font-semibold text-charcoal mb-4">Table of Contents</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="#hero" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">Introduction</a>
+          </li>
+          <li>
+            <a href="#devops" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">1. DevOps Fundamentals</a>
+          </li>
+          <li>
+            <a href="#mlops" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">2. MLOps: Operationalizing ML</a>
+          </li>
+          <li>
+            <a href="#aiops" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">3. AIOps: AI for IT Operations</a>
+          </li>
+          <li>
+            <a href="#llmops" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">4. LLMOps: Managing LLM Lifecycle</a>
+          </li>
+          <li>
+            <a href="#tutorial" class="block py-1 px-2 rounded hover:bg-sage hover:bg-opacity-20 transition-colors">5. Interactive Tutorial</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+      <!-- Hero Section -->
+      <section id="hero" class="min-h-screen relative overflow-hidden">
+        <div class="absolute inset-0">
+          <img src="https://kimi-web-img.moonshot.cn/img/static.vecteezy.com/2ade0c73a58efe1cabd5a7a685b6db33d947406c.jpg" alt="Abstract technology background with layered information flow" class="w-full h-full object-cover opacity-30" size="wallpaper" aspect="wide" color="blue" query="abstract technology background" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+          <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-4 md:px-8 py-16">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center min-h-screen">
+            <!-- Main Title Block -->
+            <div class="md:col-span-8">
+              <div class="bento-item p-6 md:p-8 rounded-lg">
+                <h1 class="text-3xl md:text-5xl lg:text-7xl font-serif font-bold leading-tight mb-6">
+                  <span class="italic text-sage">From DevOps</span>
+                  <br/>
+                  <span class="text-charcoal">to LLMOps</span>
+                </h1>
+                <p class="text-lg md:text-xl lg:text-2xl text-stone font-light leading-relaxed mb-8">
+                  A comprehensive journey through modern operations practices, blending theoretical foundations with practical Python implementations for retail and healthcare applications.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-4 py-2 bg-sage bg-opacity-20 text-sage rounded-full text-sm font-medium">DevOps</span>
+                  <span class="px-4 py-2 bg-clay bg-opacity-20 text-clay rounded-full text-sm font-medium">MLOps</span>
+                  <span class="px-4 py-2 bg-stone bg-opacity-20 text-stone rounded-full text-sm font-medium">AIOps</span>
+                  <span class="px-4 py-2 bg-charcoal bg-opacity-10 text-charcoal rounded-full text-sm font-medium">LLMOps</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Highlights Grid -->
+            <div class="md:col-span-4">
+              <div class="space-y-4">
+                <div class="bento-item p-4 md:p-6 rounded-lg">
+                  <i class="fas fa-code text-2xl text-sage mb-3"></i>
+                  <h3 class="font-serif font-semibold text-lg mb-2">Python Automation</h3>
+                  <p class="text-sm text-stone">Leverage Fabric, Paramiko, and MLflow for robust automation scripts</p>
+                </div>
+
+                <div class="bento-item p-4 md:p-6 rounded-lg">
+                  <i class="fas fa-brain text-2xl text-clay mb-3"></i>
+                  <h3 class="font-serif font-semibold text-lg mb-2">AI-Powered Insights</h3>
+                  <p class="text-sm text-stone">ADTK for anomaly detection, LangChain for LLM applications</p>
+                </div>
+
+                <div class="bento-item p-4 md:p-6 rounded-lg">
+                  <i class="fas fa-chart-line text-2xl text-stone mb-3"></i>
+                  <h3 class="font-serif font-semibold text-lg mb-2">Industry Focus</h3>
+                  <p class="text-sm text-stone">Real-world applications in retail and healthcare sectors</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: DevOps Fundamentals -->
+      <section id="devops" class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="mb-12">
+            <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">1. DevOps Fundamentals</h2>
+            <p class="text-xl text-stone leading-relaxed">The foundation of modern software delivery and operations</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">Core Principles</h3>
+              <p class="text-stone leading-relaxed mb-4">
+                DevOps represents a cultural and professional movement that emerged around 2008, fundamentally a software engineering culture designed to unify development and operations <a href="https://github.com/lcomplete/TechShare/blob/master/docs/engineering/devops.md" class="citation-link">[9]</a>.
+              </p>
+              <ul class="space-y-2 text-stone">
+                <li class="flex items-center"><i class="fas fa-check text-sage mr-2"></i>Continuous Integration &amp; Delivery</li>
+                <li class="flex items-center"><i class="fas fa-check text-sage mr-2"></i>Infrastructure as Code</li>
+                <li class="flex items-center"><i class="fas fa-check text-sage mr-2"></i>Automated Testing &amp; Monitoring</li>
+                <li class="flex items-center"><i class="fas fa-check text-sage mr-2"></i>Collaborative Culture</li>
+              </ul>
+            </div>
+
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">Essential Toolchain</h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="font-medium">Version Control</span>
+                  <span class="px-3 py-1 bg-sage bg-opacity-20 text-sage rounded-full text-sm">Git</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="font-medium">CI/CD</span>
+                  <span class="px-3 py-1 bg-clay bg-opacity-20 text-clay rounded-full text-sm">GitHub Actions</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="font-medium">Infrastructure</span>
+                  <span class="px-3 py-1 bg-stone bg-opacity-20 text-stone rounded-full text-sm">Terraform</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">DevOps Lifecycle</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-project-diagram text-2xl text-sage mb-2"></i>
+                <h4 class="font-semibold">Plan</h4>
+                <p class="text-sm text-stone">Define goals and requirements</p>
+              </div>
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-code text-2xl text-clay mb-2"></i>
+                <h4 class="font-semibold">Code</h4>
+                <p class="text-sm text-stone">Develop and version control</p>
+              </div>
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-cogs text-2xl text-stone mb-2"></i>
+                <h4 class="font-semibold">Build &amp; Test</h4>
+                <p class="text-sm text-stone">Automated compilation and testing</p>
+              </div>
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-rocket text-2xl text-charcoal mb-2"></i>
+                <h4 class="font-semibold">Deploy &amp; Monitor</h4>
+                <p class="text-sm text-stone">Release and continuous monitoring</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">Industry Applications</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="font-semibold text-lg text-sage mb-2">Retail</h4>
+                <ul class="space-y-1 text-stone">
+                  <li>• E-commerce platform management</li>
+                  <li>• Point-of-sale system updates</li>
+                  <li>• Inventory management automation</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg text-clay mb-2">Healthcare</h4>
+                <ul class="space-y-1 text-stone">
+                  <li>• EHR system deployment</li>
+                  <li>• Patient portal management</li>
+                  <li>• Telehealth solution operations</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 2: MLOps -->
+      <section id="mlops" class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="mb-12">
+            <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">2. MLOps: Operationalizing Machine Learning</h2>
+            <p class="text-xl text-stone leading-relaxed">Streamlining the machine learning lifecycle from development to production</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="interactive-card bg-cream p-6 rounded-lg">
+              <i class="fas fa-flask text-3xl text-sage mb-4"></i>
+              <h3 class="text-xl font-serif font-semibold text-charcoal mb-3">Model Tracking</h3>
+              <p class="text-stone leading-relaxed">MLflow provides comprehensive experiment tracking, allowing data scientists to log parameters, metrics, and artifacts for systematic comparison <a href="https://blog.csdn.net/yweng18/article/details/146802670" class="citation-link">[28]</a>.</p>
+            </div>
+
+            <div class="interactive-card bg-cream p-6 rounded-lg">
+              <i class="fas fa-registered text-3xl text-clay mb-4"></i>
+              <h3 class="text-xl font-serif font-semibold text-charcoal mb-3">Model Registry</h3>
+              <p class="text-stone leading-relaxed">Centralized repository for managing trained models, including versioning, stage transitions, and collaborative lifecycle management.</p>
+            </div>
+
+            <div class="interactive-card bg-cream p-6 rounded-lg">
+              <i class="fas fa-shipping-fast text-3xl text-stone mb-4"></i>
+              <h3 class="text-xl font-serif font-semibold text-charcoal mb-3">Deployment</h3>
+              <p class="text-stone leading-relaxed">FastAPI and Docker enable robust model serving with containerization for consistency across environments.</p>
+            </div>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">MLOps Workflow Example</h3>
+            <div class="bg-white p-6 rounded-lg border border-sage border-opacity-20">
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                <div class="p-3">
+                  <i class="fas fa-database text-sage mb-2"></i>
+                  <p class="text-sm font-medium">Data Preparation</p>
+                  <code class="text-xs text-stone">data_prepare.py</code>
+                </div>
+                <div class="p-3">
+                  <i class="fas fa-brain text-clay mb-2"></i>
+                  <p class="text-sm font-medium">Model Training</p>
+                  <code class="text-xs text-stone">model_train.py</code>
+                </div>
+                <div class="p-3">
+                  <i class="fas fa-vial text-stone mb-2"></i>
+                  <p class="text-sm font-medium">Testing</p>
+                  <code class="text-xs text-stone">unit_test.py</code>
+                </div>
+                <div class="p-3">
+                  <i class="fas fa-server text-charcoal mb-2"></i>
+                  <p class="text-sm font-medium">Serving</p>
+                  <code class="text-xs text-stone">fastapi_service.py</code>
+                </div>
+              </div>
+            </div>
+            <p class="text-stone mt-4">This structured approach ensures models are production-ready and maintainable, with GitHub Actions orchestrating the CI/CD pipeline <a href="https://blog.csdn.net/yweng18/article/details/146802670" class="citation-link">[28]</a>.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-xl font-serif font-semibold text-sage mb-4">Retail: Recommendation Systems</h3>
+              <p class="text-stone leading-relaxed mb-4">MLOps pipelines enable continuous collection of customer interaction data, periodic retraining of recommendation models, and seamless deployment of improved algorithms.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-sage bg-opacity-20 text-sage rounded-full text-sm">Click-through Rate</span>
+                <span class="px-3 py-1 bg-sage bg-opacity-20 text-sage rounded-full text-sm">Conversion Rate</span>
+                <span class="px-3 py-1 bg-sage bg-opacity-20 text-sage rounded-full text-sm">A/B Testing</span>
+              </div>
+            </div>
+
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-xl font-serif font-semibold text-clay mb-4">Healthcare: Predictive Models</h3>
+              <p class="text-stone leading-relaxed mb-4">Critical for operationalizing models for early disease detection, patient readmission risk prediction, and treatment optimization while ensuring HIPAA compliance.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-clay bg-opacity-20 text-clay rounded-full text-sm">EHR Integration</span>
+                <span class="px-3 py-1 bg-clay bg-opacity-20 text-clay rounded-full text-sm">Concept Drift</span>
+                <span class="px-3 py-1 bg-clay bg-opacity-20 text-clay rounded-full text-sm">Security</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 3: AIOps -->
+      <section id="aiops" class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="mb-12">
+            <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">3. AIOps: AI for IT Operations</h2>
+            <p class="text-xl text-stone leading-relaxed">Enhancing IT operations through intelligent automation and anomaly detection</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="interactive-card bg-cream p-6 rounded-lg">
+              <i class="fas fa-search text-3xl text-sage mb-4"></i>
+              <h3 class="text-xl font-serif font-semibold text-charcoal mb-3">Anomaly Detection</h3>
+              <p class="text-stone leading-relaxed">Identify unusual patterns in system metrics using ADTK for real-time detection of potential issues before escalation <a href="https://www.juniper.net/cn/zh/research-topics/what-is-aiops.html" class="citation-link">[33]</a>.</p>
+            </div>
+
+            <div class="interactive-card bg-cream p-6 rounded-lg">
+              <i class="fas fa-file-alt text-3xl text-clay mb-4"></i>
+              <h3 class="text-xl font-serif font-semibold text-charcoal mb-3">Log Analysis</h3>
+              <p class="text-stone leading-relaxed">Machine learning and NLP techniques to parse massive log volumes, identify patterns, and correlate events for comprehensive incident views <a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/AIOps.html" class="citation-link">[36]</a>.</p>
+            </div>
+
+            <div class="interactive-card bg-cream p-6 rounded-lg">
+              <i class="fas fa-tools text-3xl text-stone mb-4"></i>
+              <h3 class="text-xl font-serif font-semibold text-charcoal mb-3">Predictive Maintenance</h3>
+              <p class="text-stone leading-relaxed">Forecast system failures using historical data and ML models, enabling proactive maintenance and avoiding unplanned downtime <a href="https://www.redhat.com/zh-cn/topics/ai/what-is-aiops" class="citation-link">[35]</a>.</p>
+            </div>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">ADTK Anomaly Detection Toolkit</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="bg-white p-4 rounded-lg">
+                <h4 class="font-semibold text-sage mb-2">ThresholdAD</h4>
+                <p class="text-sm text-stone">Detect values beyond predefined thresholds</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg">
+                <h4 class="font-semibold text-clay mb-2">PersistAD</h4>
+                <p class="text-sm text-stone">Identify deviations from persistent states</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg">
+                <h4 class="font-semibold text-stone mb-2">LevelShiftAD</h4>
+                <p class="text-sm text-stone">Detect sudden shifts in time series</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg">
+                <h4 class="font-semibold text-charcoal mb-2">SeasonalAD</h4>
+                <p class="text-sm text-stone">Find anomalies in seasonal patterns</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-xl font-serif font-semibold text-sage mb-4">Retail Applications</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold text-charcoal">Fraud Detection</h4>
+                  <p class="text-stone text-sm">Analyze transaction patterns using Random Forest classifiers to identify anomalous activities in real-time <a href="https://blog.csdn.net/viviwiky/article/details/143642614" class="citation-link">[60]</a>.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-charcoal">Inventory Optimization</h4>
+                  <p class="text-stone text-sm">Predict demand fluctuations and supply chain disruptions using time series analysis with ADTK <a href="https://developer.aliyun.com/article/1512597" class="citation-link">[38]</a>.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-xl font-serif font-semibold text-clay mb-4">Healthcare Applications</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold text-charcoal">Medical Image Analysis</h4>
+                  <p class="text-stone text-sm">MONAI library for 3D UNet models to segment organs and lesions from CT scans with sophisticated preprocessing pipelines <a href="https://www.it1024doc.com/12945.html" class="citation-link">[74]</a>.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-charcoal">Patient Monitoring</h4>
+                  <p class="text-stone text-sm">Continuous analysis of patient vitals and EHR data to detect early warning signs and predict health risks.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 4: LLMOps -->
+      <section id="llmops" class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="mb-12">
+            <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">4. LLMOps: Managing LLM Lifecycle</h2>
+            <p class="text-xl text-stone leading-relaxed">Streamlining Large Language Model development, deployment, and monitoring</p>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">LLMOps Challenges</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-server text-2xl text-sage mb-2"></i>
+                <h4 class="font-semibold">Scale</h4>
+                <p class="text-sm text-stone">Billions of parameters requiring specialized infrastructure</p>
+              </div>
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-cog text-2xl text-clay mb-2"></i>
+                <h4 class="font-semibold">Fine-tuning</h4>
+                <p class="text-sm text-stone">Domain adaptation with task-specific datasets</p>
+              </div>
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-comment-dots text-2xl text-stone mb-2"></i>
+                <h4 class="font-semibold">Prompt Engineering</h4>
+                <p class="text-sm text-stone">Optimizing input prompts for desired responses</p>
+              </div>
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-shield-alt text-2xl text-charcoal mb-2"></i>
+                <h4 class="font-semibold">Security</h4>
+                <p class="text-sm text-stone">Protection against prompt injection and hallucinations</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">LangChain Framework</h3>
+              <p class="text-stone leading-relaxed mb-4">
+                Open-source framework for developing applications powered by language models, providing modular abstractions for building context-aware reasoning applications <a href="https://pypi.org/project/langchain/" class="citation-link">[95]</a>.
+              </p>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <i class="fas fa-check text-sage mr-2"></i>
+                  <span class="text-stone">Standardized model interfaces</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check text-sage mr-2"></i>
+                  <span class="text-stone">Vector store integrations</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-check text-sage mr-2"></i>
+                  <span class="text-stone">Prompt templating</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">RAG Systems</h3>
+              <p class="text-stone leading-relaxed mb-4">
+                Retrieval Augmented Generation enhances LLM capabilities by providing external knowledge sources, improving accuracy and relevance for domain-specific applications <a href="https://zhuanlan.zhihu.com/p/692423116" class="citation-link">[103]</a>.
+              </p>
+              <div class="bg-white p-4 rounded-lg">
+                <code class="text-sm text-stone">
+                                # RAG Pipeline Example<br/>
+                                loader = TextLoader(&#34;data.txt&#34;)<br/>
+                                splits = text_splitter.split_documents(docs)<br/>
+                                vectorstore = FAISS.from_documents(splits, embeddings)<br/>
+                                retriever = vectorstore.as_retriever()
+                            </code>
+              </div>
+            </div>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">CI/CD for LLMs</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <h4 class="font-semibold text-sage mb-2">Continuous Integration</h4>
+                <ul class="text-sm text-stone space-y-1">
+                  <li>• Automated code testing</li>
+                  <li>• Prompt version control</li>
+                  <li>• Model validation</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold text-clay mb-2">Continuous Deployment</h4>
+                <ul class="text-sm text-stone space-y-1">
+                  <li>• Containerized deployment</li>
+                  <li>• Model registry management</li>
+                  <li>• Canary releases</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold text-stone mb-2">Monitoring</h4>
+                <ul class="text-sm text-stone space-y-1">
+                  <li>• Latency &amp; throughput tracking</li>
+                  <li>• Response quality metrics</li>
+                  <li>• Security monitoring</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-xl font-serif font-semibold text-sage mb-4">Retail: Customer Assistants</h3>
+              <p class="text-stone leading-relaxed mb-4">24/7 customer support chatbots providing product information, order tracking, and personalized recommendations based on RAG systems built on product catalogs.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-sage bg-opacity-20 text-sage rounded-full text-sm">Product Queries</span>
+                <span class="px-3 py-1 bg-sage bg-opacity-20 text-sage rounded-full text-sm">Order Tracking</span>
+                <span class="px-3 py-1 bg-sage bg-opacity-20 text-sage rounded-full text-sm">Recommendations</span>
+              </div>
+            </div>
+
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-xl font-serif font-semibold text-clay mb-4">Healthcare: Medical Assistants</h3>
+              <p class="text-stone leading-relaxed mb-4">Supporting patients with symptom information, medication reminders, and appointment scheduling, while assisting professionals with clinical note drafting and literature search.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-clay bg-opacity-20 text-clay rounded-full text-sm">HIPAA Compliance</span>
+                <span class="px-3 py-1 bg-clay bg-opacity-20 text-clay rounded-full text-sm">Medical Literature</span>
+                <span class="px-3 py-1 bg-clay bg-opacity-20 text-clay rounded-full text-sm">Patient Education</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Section 5: Interactive Tutorial -->
+      <section id="tutorial" class="py-16 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="mb-12">
+            <h2 class="text-4xl font-serif font-bold text-charcoal mb-4">5. Interactive Tutorial</h2>
+            <p class="text-xl text-stone leading-relaxed">Hands-on implementation with Jupyter Notebooks and industry scenarios</p>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">Environment Setup</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-semibold text-sage mb-3">Core Components</h4>
+                <div class="bg-white p-4 rounded-lg">
+                  <code class="text-sm text-stone">
+                                    # Create virtual environment<br/>
+                                    python -m venv ops-tutorial<br/>
+                                    source ops-tutorial/bin/activate<br/><br/>
+                                    # Install core packages<br/>
+                                    pip install jupyterlab ipywidgets<br/>
+                                    pip install pandas scikit-learn mlflow
+                                </code>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold text-clay mb-3">Domain-Specific Libraries</h4>
+                <div class="bg-white p-4 rounded-lg">
+                  <code class="text-sm text-stone">
+                                    # DevOps<br/>
+                                    pip install fabric paramiko<br/><br/>
+                                    # AIOps<br/>
+                                    pip install adtk prometheus-client<br/><br/>
+                                    # LLMOps<br/>
+                                    pip install langchain sentence-transformers
+                                </code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">Retail Scenario: Demand Forecasting</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold text-sage">Data Preparation</h4>
+                  <p class="text-sm text-stone">Load historical sales data with features like product ID, date, quantity, price, and promotions.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-clay">Model Training</h4>
+                  <p class="text-sm text-stone">Train time series forecasting model with MLflow tracking for experiment management.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-stone">Deployment</h4>
+                  <p class="text-sm text-stone">Deploy as FastAPI service with Docker containerization for production use.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="interactive-card bg-cream p-8 rounded-lg">
+              <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">Healthcare Scenario: Patient Risk Prediction</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold text-sage">Data Processing</h4>
+                  <p class="text-sm text-stone">Feature engineering from EHR data including diagnoses, medications, and lab results.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-clay">Model Development</h4>
+                  <p class="text-sm text-stone">Build predictive model for patient readmission risk with proper validation and testing.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-stone">Monitoring</h4>
+                  <p class="text-sm text-stone">Implement concept drift detection and model performance monitoring.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">Interactive Dashboard Options</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-chart-bar text-3xl text-sage mb-3"></i>
+                <h4 class="font-semibold">Dash</h4>
+                <p class="text-sm text-stone">Sophisticated web applications with React.js and Plotly.js integration <a href="https://developer.volcengine.com/articles/7383086603352145930" class="citation-link">[116]</a>.</p>
+              </div>
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-stream text-3xl text-clay mb-3"></i>
+                <h4 class="font-semibold">Streamlit</h4>
+                <p class="text-sm text-stone">Rapid development with simple Python scripts and automatic UI updates <a href="https://cloud.tencent.com/developer/news/2327374" class="citation-link">[118]</a>.</p>
+              </div>
+              <div class="text-center p-4 bg-white rounded-lg">
+                <i class="fas fa-magic text-3xl text-stone mb-3"></i>
+                <h4 class="font-semibold">Gradio</h4>
+                <p class="text-sm text-stone">Quick ML model interfaces ideal for sharing with non-technical users <a href="https://blog.csdn.net/Jackie_vip/article/details/146044106" class="citation-link">[117]</a>.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="interactive-card bg-cream p-8 rounded-lg">
+            <h3 class="text-2xl font-serif font-semibold text-charcoal mb-4">Learning Path</h3>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-sage rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1">1</div>
+                <div>
+                  <h4 class="font-semibold text-charcoal">DevOps Automation</h4>
+                  <p class="text-stone">Python scripting with Fabric/Paramiko for server management and deployment automation.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-clay rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1">2</div>
+                <div>
+                  <h4 class="font-semibold text-charcoal">MLOps Pipeline</h4>
+                  <p class="text-stone">Complete ML lifecycle management with MLflow, from experiment tracking to model serving.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-stone rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1">3</div>
+                <div>
+                  <h4 class="font-semibold text-charcoal">AIOps Implementation</h4>
+                  <p class="text-stone">Anomaly detection with ADTK and log analysis with custom Python pipelines.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-8 h-8 bg-charcoal rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1">4</div>
+                <div>
+                  <h4 class="font-semibold text-charcoal">LLMOps Development</h4>
+                  <p class="text-stone">Building RAG systems with LangChain and deploying LLM applications with proper monitoring.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="py-12 bg-charcoal text-cream">
+        <div class="container mx-auto px-4 md:px-8">
+          <div class="text-center">
+            <h3 class="text-2xl font-serif font-semibold mb-4">Continue Your Journey</h3>
+            <p class="text-cream text-opacity-80 mb-6">This comprehensive tutorial provides the foundation for mastering modern operations practices across the full spectrum from DevOps to LLMOps.</p>
+            <div class="flex justify-center space-x-4">
+              <a href="#devops" class="px-6 py-2 bg-sage rounded-lg text-white hover:bg-opacity-80 transition-colors">Start with DevOps</a>
+              <a href="#tutorial" class="px-6 py-2 bg-clay rounded-lg text-white hover:bg-opacity-80 transition-colors">Jump to Tutorial</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Interactive card hover effects
+        document.querySelectorAll('.interactive-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Active section highlighting in TOC
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-fixed a[href^="#"]');
+
+        function updateActiveSection() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('bg-sage', 'bg-opacity-30');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('bg-sage', 'bg-opacity-30');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveSection);
+        updateActiveSection(); // Initial call
+    </script>
+  
+
+</body></html>
