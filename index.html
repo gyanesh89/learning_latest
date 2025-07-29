@@ -28,6 +28,19 @@
             max-width: 90%; /* Max width for responsiveness */
             width: 500px; /* Fixed width for larger screens */
         }
+        .button-group {
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically on small screens */
+            gap: 1rem; /* Space between buttons */
+            margin-top: 2rem; /* Space above the button group */
+            align-items: center; /* Center buttons horizontally */
+        }
+        @media (min-width: 640px) {
+            .button-group {
+                flex-direction: row; /* Arrange buttons horizontally on larger screens */
+                justify-content: center; /* Center buttons horizontally */
+            }
+        }
         .button-link {
             display: inline-block; /* Allows padding and margin */
             background-image: linear-gradient(to right, #6366f1, #8b5cf6); /* Gradient background */
@@ -39,6 +52,8 @@
             font-size: 1.125rem; /* Larger font size */
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for hover effects */
             box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); /* Shadow for button */
+            width: 100%; /* Full width on small screens */
+            max-width: 250px; /* Max width for individual buttons */
         }
         .button-link:hover {
             transform: translateY(-3px); /* Lift effect on hover */
@@ -78,8 +93,11 @@
 <body>
     <div class="container">
         <h1>Welcome to Your MLOps Journey!</h1>
-        <p>Click the button below to explore the MLOps documentation and learn more about Machine Learning Operations.</p>
-        <a href="mlops.html" class="button-link">Go to MLOps Guide</a>
+        <p>Click the buttons below to explore different guides.</p>
+        <div class="button-group">
+            <a href="mlops.html" class="button-link">Go to MLOps Guide</a>
+            <a href="agenticai.html" class="button-link">Go to Agentic AI Guide</a>
+        </div>
     </div>
 </body>
 </html>
