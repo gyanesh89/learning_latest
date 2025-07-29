@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLMOps Interview Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #c7254e;
+        }
+        pre {
+            background-color: #eef;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        pre code {
+            display: block;
+            white-space: pre;
+            color: #000;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .copy-button:hover {
+            background-color: #2980b9;
+        }
+        strong {
+            color: #e74c3c;
+        }
+        .answer {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4CAF50;
+            padding: 10px 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>30 Real-World LLMOps Interview Questions</h1>
+    <p>Below is a concise yet complete set of AIOps interview questions (conceptual + scenario + programming) drawn directly from the latest 2024-2025 sources, each followed by a short, ready-to-use answer so you can study or white-board immediately. Use them as flash-cards or white-board prep.</p>
+
+    <h2>Conceptual Questions</h2>
+    <h3>1. What is LLMOps and how does it differ from MLOps?</h3>
+    <div class="answer">
+        LLMOps is the discipline that operationalizes large-language models from prompt-engineering through production serving, monitoring, and governance. While MLOps covers all ML models, LLMOps adds LLM-specific needs such as prompt versioning, embedding stores, token-cost tracking, and hallucination detection.
+    </div>
+
+    <h3>2. Name the six core stages of the LLMOps life-cycle.</h3>
+    <div class="answer">
+        <ul>
+            <li>Exploratory data & prompt analysis</li>
+            <li>Data prep + prompt engineering</li>
+            <li>Fine-tuning / RLHF</li>
+            <li>Model review & governance (MLflow, DVC)</li>
+            <li>Deployment (GPU serving, batch vs. streaming)</li>
+            <li>Continuous monitoring + human-in-the-loop feedback</li>
+        </ul>
+    </div>
+
+    <h3>3. List three LLM-specific monitoring KPIs that differ from classical ML.</h3>
+    <div class="answer">
+        <ul>
+            <li>Token-latency P99 (ms/token)</li>
+            <li>Perplexity drift vs. reference corpus</li>
+            <li>Hallucination rate (auto-evaluated by a second LLM)</li>
+        </ul>
+    </div>
+
+    <h3>4. How do you detect prompt drift in production?</h3>
+    <div class="answer">
+        Embed incoming prompts with an embedding model → compare cosine similarity distribution against a weekly reference set via KS-test. Alert if p-value &lt; 0.05.
+    </div>
+
+    <h3>5. Code: embed prompts and compute drift</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from sentence_transformers import SentenceTransformer
+from scipy.stats import ks_2samp
+import numpy as np
+
+embedder = SentenceTransformer('all-MiniLM-L6-v2')
+ref_embeds = np.load('ref.npy')          # shape=(N,384)
+
+def prompt_drift(prompts):
+    new_embeds = embedder.encode(prompts)
+    stat, p = ks_2samp(ref_embeds.flatten(), new_embeds.flatten())
+    return p < 0.05</code></pre>
+
+    <h3>6. Explain parameter-efficient fine-tuning (PEFT) and give one implementation.</h3>
+    <div class="answer">
+        PEFT freezes > 99 % of weights and trains low-rank adapters (LoRA) or prompt-tuning tokens, cutting GPU RAM from 80 GB → 8 GB.
+    </div>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from peft import LoraConfig, get_peft_model
+
+lora_config = LoraConfig(r=8, lora_alpha=32, target_modules=["q_proj", "v_proj"])
+peft_model = get_peft_model(base_model, lora_config)</code></pre>
+
+    <h3>7. Why are vector databases essential in LLMOps?</h3>
+    <div class="answer">
+        They enable sub-second similarity search over millions of embeddings (e.g., retrieval-augmented generation) and provide CRUD, versioning, and partition support that SQL/NoSQL cannot.
+    </div>
+
+    <h3>8. Build a minimal Flask LLM service</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from flask import Flask, request, jsonify
+from transformers import pipeline
+
+app = Flask(__name__)
+generator = pipeline("text-generation", model="gpt2")
+
+@app.route('/generate', methods=['POST'])
+def generate():
+    prompt = request.json["prompt"]
+    out = generator(prompt, max_new_tokens=50, do_sample=True)[0]["generated_text"]
+    return jsonify({"completion": out})</code></pre>
+
+    <h3>9. Describe a CI/CD pipeline for LLMs.</h3>
+    <div class="answer">
+        Git push triggers GitHub Actions:
+        <ul>
+            <li>Lint → unit tests → prompt regression tests</li>
+            <li>Build container → push to registry</li>
+            <li>Canary deploy to K8s (Argo CD)</li>
+            <li>Automatic rollback if perplexity ↑ > 5 %</li>
+        </ul>
+    </div>
+
+    <h3>10. Code: GitHub Actions workflow step</h3>
+    <h4>yaml</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>- name: Prompt regression test
+  run: |
+    pytest tests/test_prompts.py --model-path ./models/latest
+    echo "perplexity=$(cat perplexity.txt)" >> $GITHUB_ENV
+- name: Canary
+  if: env.perplexity < 25
+  run: kubectl set image deployment/llm llm=myrepo/llm:${GITHUB_SHA}</code></pre>
+
+    <h3>11. How do you compress an LLM for edge deployment?</h3>
+    <div class="answer">
+        <ul>
+            <li>INT8 weight quantization (bitsandbytes)</li>
+            <li>Knowledge distillation into a smaller model</li>
+            <li>LoRA adapter pruning</li>
+        </ul>
+    </div>
+
+    <h3>12. Code: INT8 quantisation with transformers</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from transformers import BitsAndBytesConfig, AutoModelForCausalLM
+import torch # torch import is typically needed for bnb_4bit_compute_dtype
+
+bnb_config = BitsAndBytesConfig(load_in_8bit=True, bnb_4bit_compute_dtype=torch.float16)
+model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-2-7b", quantization_config=bnb_config)</code></pre>
+
+    <h3>13. Scenario: latency spikes in production</h3>
+    <div class="answer">
+        <ul>
+            <li>Profile with NVIDIA Nsight → identify GPU kernel stalls</li>
+            <li>Enable continuous batching (vLLM)</li>
+            <li>Add KV-cache quantization to cut memory pressure</li>
+        </ul>
+    </div>
+
+    <h3>14. How do you evaluate an LLM without ground-truth?</h3>
+    <div class="answer">
+        Use LLM-as-a-judge: prompt GPT-4 to rate coherence on 1–5 scale; correlate human labels to calibrate threshold.
+    </div>
+
+    <h3>15. Code: automated retraining loop</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>import subprocess
+
+def retrain_if_drift():
+    # Assume latest_prompts() and prompt_drift() are defined elsewhere
+    # latest_prompts() should fetch current production prompts
+    if prompt_drift(latest_prompts()):
+        subprocess.run(["bash", "scripts/full_finetune.sh"])</code></pre>
+
+    <h3>16. What is a prompt template registry and why use one?</h3>
+    <div class="answer">
+        A version-controlled JSON/YAML store that maps prompt IDs → templates + parameters, ensuring reproducible A/B tests and rollbacks.
+    </div>
+
+    <h3>17. How do you mitigate bias?</h3>
+    <div class="answer">
+        <ul>
+            <li>Adversarial debiasing during RLHF</li>
+            <li>Human-in-the-loop review for sensitive completions</li>
+            <li>Fairness dashboards tracking toxicity scores</li>
+        </ul>
+    </div>
+
+    <h3>18. Code: log prompt-completion pairs with PII redaction</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>import re
+
+def scrub(text):
+    # Example: Redact dates and simple email patterns
+    text = re.sub(r"\b\d{4}-\d{2}-\d{2}\b", "[DATE]", text)
+    text = re.sub(r"\S+@\S+", "[EMAIL]", text)
+    return text
+
+# Example usage (assuming prompt and completion are defined)
+# prompt = "My name is John Doe and my email is john.doe@example.com."
+# completion = "Thank you for providing your information on 2024-07-29."
+# log = {"prompt": scrub(prompt), "completion": scrub(completion)}
+# print(log)</code></pre>
+
+    <h3>19. Explain model drift vs. prompt drift.</h3>
+    <div class="answer">
+        <ul>
+            <li><strong>Model drift:</strong> distribution of ground-truth labels changes → retrain needed.</li>
+            <li><strong>Prompt drift:</strong> distribution of user inputs shifts → may only require prompt tuning or safety filters.</li>
+        </ul>
+    </div>
+
+    <h3>20. How do you roll back a bad LLM?</h3>
+    <div class="answer">
+        Kubernetes <code>kubectl rollout undo deployment/llm</code> or MLflow registry stage transition (Production → Archived) within 30s SLAs.
+    </div>
+
+    <h3>21. Code: Docker multi-stage build for faster cold-start</h3>
+    <h4>dockerfile</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>FROM nvidia/cuda:12.2-devel as builder
+RUN pip install torch transformers --no-cache-dir
+
+FROM nvidia/cuda:12.2-runtime
+COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+COPY app.py .
+CMD ["python", "app.py"]</code></pre>
+
+    <h3>22. Describe GPU autoscaling for LLMs.</h3>
+    <div class="answer">
+        KEDA scaler watches average GPU utilisation; if > 80 % for 2 min, spins up new pods with vLLM serving the same checkpoint via shared PVC.
+    </div>
+
+    <h3>23. What is LLM observability?</h3>
+    <div class="answer">
+        Real-time ingestion of prompt tokens, latency, cost, user feedback and hallucination scores into Prometheus/Grafana dashboards; includes prompt lineage to trace bad outputs.
+    </div>
+
+    <h3>24. Code: vector DB insert & semantic retrieval</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from pinecone import Pinecone, ServerlessSpec
+from sentence_transformers import SentenceTransformer # Assuming embedder is defined as in Q5
+
+# Initialize Pinecone (replace with your actual API key and environment)
+# For demonstration, a placeholder is used.
+pc = Pinecone(api_key="YOUR_API_KEY") 
+# index_name = "your-index-name"
+# if index_name not in pc.list_indexes():
+#     pc.create_index(index_name, dimension=384, metric='cosine', spec=ServerlessSpec(cloud='aws', region='us-west-2'))
+index = pc.Index("docs")
+
+# Assuming embedder is initialized (e.g., embedder = SentenceTransformer('all-MiniLM-L6-v2'))
+embedder = SentenceTransformer('all-MiniLM-L6-v2') 
+
+# Example data
+# id = "doc1"
+# text = "This is a sample document."
+# index.upsert([(id, embedder.encode(text).tolist())])
+
+# Example query
+# query_text = "What is this about?"
+# query_vec = embedder.encode(query_text).tolist()
+# results = index.query(vector=query_vec, top_k=5, include_metadata=True)
+# print(results)</code></pre>
+
+    <h3>25. How do you ensure GDPR compliance?</h3>
+    <div class="answer">
+        <ul>
+            <li>Encrypt data at rest (AES-256) and in transit (TLS 1.3)</li>
+            <li>Data-retention policy auto-deletes prompts after 30 days</li>
+            <li>Provide Right-to-be-Forgotten API endpoint</li>
+        </ul>
+    </div>
+
+    <h3>26. Scenario: cost explosion with GPT-4</h3>
+    <div class="answer">
+        <ul>
+            <li>Switch to function-calling to reduce prompt size</li>
+            <li>Cache embeddings in Redis</li>
+            <li>Route low-risk queries to cheaper model via feature flag</li>
+        </ul>
+    </div>
+
+    <h3>27. Code: feature flag toggle</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>import os
+
+USE_CHEAP = os.getenv("USE_CHEAP_MODEL", "false") == "true"
+model = "gpt-3.5-turbo" if USE_CHEAP else "gpt-4"
+# Example usage:
+# print(f"Using model: {model}")</code></pre>
+
+    <h3>28. What is chain-of-thought evaluation?</h3>
+    <div class="answer">
+        Ask the LLM to output its reasoning steps, then grade each step with a rubric; reduces hallucination by 35 % according to 2024 OpenAI evals.
+    </div>
+
+    <h3>29. How do you monitor toxicity in real time?</h3>
+    <div class="answer">
+        Pipe every completion through Detoxify model; alert if toxicity score > 0.5.
+    </div>
+
+    <h3>30. Final checklist for production readiness</h3>
+    <div class="answer">
+        <ul>
+            <li>✅ Prompt registry versioned</li>
+            <li>✅ GPU autoscaling test passed</li>
+            <li>✅ Rollback playbook &lt; 60 s</li>
+            <li>✅ Human-in-loop feedback loop closed</li>
+            <li>✅ Cost dashboard visible to finance</li>
+        </ul>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
