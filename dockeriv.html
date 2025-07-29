@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker – 2024-2025 Interview Cheat-Sheet</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #c7254e;
+        }
+        pre {
+            background-color: #eef;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        pre code {
+            display: block;
+            white-space: pre;
+            color: #000;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .copy-button:hover {
+            background-color: #2980b9;
+        }
+        strong {
+            color: #e74c3c;
+        }
+        .answer {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4CAF50;
+            padding: 10px 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Docker – 2024-2025 Interview Cheat-Sheet</h1>
+    <p>30 questions + ready answers + code snippets you can whiteboard in 60 s or less.</p>
+
+    <h2>Conceptual & Basics</h2>
+    <h3>What is Docker and why “containerise”?</h3>
+    <div class="answer">
+        OS-level virtualisation that packages code + runtime + libs into a single immutable image; guarantees “works on my machine → works everywhere”.
+    </div>
+
+    <h3>Compare Docker vs VM.</h3>
+    <div class="answer">
+        Containers share the host kernel → lighter, faster boot, smaller images; VMs emulate hardware → heavier isolation.
+    </div>
+
+    <h3>Explain the Docker client–daemon architecture.</h3>
+    <div class="answer">
+        CLI (<code>docker</code>) → REST API → Docker daemon (<code>dockerd</code>) → <code>containerd</code> → <code>runc</code> → Linux namespaces & cgroups.
+    </div>
+
+    <h3>What is an image vs container?</h3>
+    <div class="answer">
+        Image = read-only template; container = running instance with a thin writable layer.
+    </div>
+
+    <h3>Name three storage drivers.</h3>
+    <div class="answer">
+        <code>overlay2</code> (default), <code>btrfs</code>, <code>zfs</code>.
+    </div>
+
+    <h2>Programming / Hands-On</h2>
+    <h3>Build and run a “Hello Docker” image.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>cat > Dockerfile <<EOF
+FROM alpine:latest
+CMD ["echo","Hello Docker"]
+EOF
+docker build -t hello .
+docker run --rm hello</code></pre>
+
+    <h3>Create a multi-stage build that compiles Go and ships a 5 MB binary.</h3>
+    <h4>Dockerfile</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>FROM golang:1.22 AS build
+WORKDIR /app
+COPY . .
+RUN CGO_ENABLED=0 go build -o app
+
+FROM scratch
+COPY --from=build /app/app /app
+ENTRYPOINT ["/app"]</code></pre>
+
+    <h3>Optimise image size—give two techniques.</h3>
+    <div class="answer">
+        ① multi-stage ② alpine or distroless base images.
+    </div>
+
+    <h3>Copy only changed files during build.</h3>
+    <h4>Dockerfile</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>COPY go.mod go.sum ./
+RUN go mod download
+COPY . .</code></pre>
+
+    <h3>Build-time secrets (BuildKit).</h3>
+    <h4>Dockerfile</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code># syntax=docker/dockerfile:1
+RUN --mount=type=secret,id=mytok \
+    TOKEN=$(cat /run/secrets/mytok) && \
+    curl -H "Authorization: Bearer $TOKEN" ...</code></pre>
+
+    <h2>Docker Compose</h2>
+    <h3>Start Postgres + Redis in one command.</h3>
+    <h4>docker-compose.yml</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code># docker-compose.yml
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: pwd
+  cache:
+    image: redis:7</code></pre>
+    <h4>Command</h4>
+    <pre><code>docker compose up -d</code></pre>
+
+    <h3>Override compose for dev & prod.</h3>
+    <div class="answer">
+        Use <code>docker-compose.override.yml</code> (dev) and <code>docker-compose.prod.yml</code> with <code>--env-file</code>.
+    </div>
+
+    <h2>Networking</h2>
+    <h3>Default bridge vs user-defined network?</h3>
+    <div class="answer">
+        User-defined networks give automatic DNS and isolation; default bridge requires <code>--link</code>.
+    </div>
+
+    <h3>Publish port 8080 inside container to host 80.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker run -p 80:8080 myapp</code></pre>
+
+    <h3>Connect two containers by name.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker network create mynet
+docker run --name api --network mynet myapi
+docker run --name web --network mynet nginx</code></pre>
+
+    <h2>Volumes & Persistence</h2>
+    <h3>Bind mount vs named volume.</h3>
+    <div class="answer">
+        Bind mount = host path (dev); named volume = Docker-managed location (prod).
+    </div>
+
+    <h3>Persist Postgres data.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker volume create pgdata
+docker run -v pgdata:/var/lib/postgresql/data postgres:16</code></pre>
+
+    <h3>Share files between containers.</h3>
+    <div class="answer">
+        Use named volume or <code>--volumes-from</code>.
+    </div>
+
+    <h2>Security</h2>
+    <h3>Run as non-root.</h3>
+    <h4>Dockerfile</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>RUN addgroup -g 1001 app && adduser -D -u 1001 -G app app
+USER app</code></pre>
+
+    <h3>Drop capabilities.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker run --cap-drop=ALL --cap-add=NET_BIND_SERVICE myapp</code></pre>
+
+    <h3>Scan image for CVEs.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker scout cves myimage:latest</code></pre>
+
+    <h2>CI/CD & Orchestration</h2>
+    <h3>GitHub Action to build & push.</h3>
+    <h4>yaml</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>- uses: docker/build-push-action@v5
+  with:
+    context: .
+    push: true
+    tags: ghcr.io/org/app:latest</code></pre>
+
+    <h3>Use BuildKit cache mounts.</h3>
+    <h4>Dockerfile</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install -r requirements.txt</code></pre>
+
+    <h3>Canary deploy with Docker Swarm.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker service update --image new:tag --update-parallelism 1 myservice</code></pre>
+
+    <h2>Monitoring & Debugging</h2>
+    <h3>Inspect running container.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker exec -it &lt;cid&gt; sh</code></pre>
+
+    <h3>Get real-time resource usage.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker stats</code></pre>
+
+    <h3>View logs with tail.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker logs -f &lt;cid&gt;</code></pre>
+
+    <h3>Prune dangling images.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker image prune -f</code></pre>
+
+    <h2>Resource Limits & Performance</h2>
+    <h3>Limit memory & CPU.</h3>
+    <h4>Bash</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>docker run -m 512m --cpus 1.5 myapp</code></pre>
+
+    <h3>Healthcheck in Dockerfile.</h3>
+    <h4>Dockerfile</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost:8080/health || exit 1</code></pre>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
