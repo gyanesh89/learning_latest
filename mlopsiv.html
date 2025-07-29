@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLOps Interview Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #c7254e;
+        }
+        pre {
+            background-color: #eef;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        pre code {
+            display: block;
+            white-space: pre;
+            color: #000;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .copy-button:hover {
+            background-color: #2980b9;
+        }
+        strong {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>MLOps Interview Questions</h1>
+    <p>Below is a curated set of MLOps interview questions that span conceptual, scenario-based, and hands-on programming tasks. They are grouped so you can quickly pick the level or topic you need.</p>
+
+    <h2>1. Conceptual & Process Questions</h2>
+    <ul>
+        <li>What is MLOps and how does it differ from traditional DevOps?</li>
+        <li>List the key components of an end-to-end MLOps pipeline.</li>
+        <li>Explain model versioning and why it is critical in production.</li>
+        <li>Describe the difference between model monitoring and model explainability; give two tools for each.</li>
+        <li>How do you ensure reproducibility across code, data, and models?</li>
+        <li>What strategies mitigate bias and fairness issues in an MLOps workflow?</li>
+        <li>Compare A/B testing vs Multi-Arm Bandit deployment strategies.</li>
+    </ul>
+
+    <h2>2. Scenario-Based (Troubleshooting & Design)</h2>
+    <ul>
+        <li><strong>“Accuracy suddenly drops after deployment.”</strong> Outline your root-cause checklist.</li>
+        <li><strong>“Data pipeline fails daily due to missing upstream fields.”</strong> How do you harden the pipeline?</li>
+        <li><strong>“Cloud inference costs are exploding.”</strong> Propose three concrete cost-optimization levers.</li>
+        <li><strong>“We need to roll back a bad model quickly.”</strong> Detail the rollback mechanism you would build.</li>
+        <li><strong>“Multiple teams contribute to the same model.”</strong> How do you handle branching, merging, and artifact storage?</li>
+    </ul>
+
+    <h2>3. Programming & Hands-On Tasks</h2>
+    <p>(Python is assumed; adapt as needed.)</p>
+
+    <h3>Load & Split Data</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>import pandas as pd
+from sklearn.model_selection import train_test_split
+
+def load_and_split(csv_path: str, test_size: float = 0.2):
+    df = pd.read_csv(csv_path)
+    X, y = df.drop('target', axis=1), df['target']
+    return train_test_split(X, y, test_size=test_size, random_state=42)</code></pre>
+
+    <h3>Save / Load Model (persistence)</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>import joblib
+
+def save_model(model, path: str):
+    joblib.dump(model, path)
+
+def load_model(path: str):
+    return joblib.load(path)</code></pre>
+
+    <h3>Basic REST API for Inference</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from flask import Flask, request, jsonify
+import joblib
+
+app = Flask(__name__)
+model = joblib.load('model.pkl')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.get_json()
+    preds = model.predict([data['features']])
+    return jsonify({'prediction': preds.tolist()})</code></pre>
+
+    <h3>Streaming Data-Drift Check (pseudo-code)</h3>
+    <p>Use the Kolmogorov-Smirnov test in a Spark Streaming job:</p>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from scipy.stats import ks_2samp
+
+def detect_drift(ref, new):
+    stat, p = ks_2samp(ref, new)
+    return p < 0.05   # boolean flag</code></pre>
+
+    <h3>Hyper-parameter Sweep Script</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from sklearn.model_selection import GridSearchCV
+
+def tune(clf, X, y, param_grid, cv=5):
+    gs = GridSearchCV(clf, param_grid, cv=cv)
+    gs.fit(X, y)
+    return gs.best_estimator_</code></pre>
+
+    <h2>4. Quick-Fire Tooling Questions</h2>
+    <ul>
+        <li>Which feature-store would you choose and why? (Feast vs Vertex AI Feature Store vs Databricks)</li>
+        <li>How do you containerise an ML model? Give a minimal Dockerfile snippet.</li>
+        <li>Name three monitoring metrics you would expose for a fraud-detection model.</li>
+        <li>Provide an Airflow DAG skeleton that retrains nightly only if data drift is detected.</li>
+    </ul>
+
+    <h2>5. Security & Compliance</h2>
+    <ul>
+        <li>Describe a multi-layer security plan for an ML REST endpoint.</li>
+        <li>How do you detect model tampering in production?</li>
+        <li>What SBOM (software bill of materials) tools do you integrate into the CI pipeline to satisfy EU CRA 2024?</li>
+    </ul>
+
+    <p>Use these questions as a study roadmap—start with the conceptual layer, move to scenarios, and finally practice the code snippets until you can reproduce them whiteboard-style.</p>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
