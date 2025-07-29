@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOps Interview Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #c7254e;
+        }
+        pre {
+            background-color: #eef;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        pre code {
+            display: block;
+            white-space: pre;
+            color: #000;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .copy-button:hover {
+            background-color: #2980b9;
+        }
+        strong {
+            color: #e74c3c;
+        }
+        .answer {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4CAF50;
+            padding: 10px 15px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AIOps Interview Questions</h1>
+    <p>Below is a concise yet complete set of AIOps interview questions (conceptual + scenario + programming) drawn directly from the latest 2024-2025 sources, each followed by a short, ready-to-use answer so you can study or white-board immediately.</p>
+
+    <h2>Conceptual & Process Questions</h2>
+    <h3>What is AIOps and why is it different from traditional monitoring?</h3>
+    <div class="answer">
+        AIOps applies AI/ML to IT-operations data to automate anomaly detection, root-cause analysis and predictive maintenance, going beyond static thresholds and dashboards.
+    </div>
+
+    <h3>List the three most common data inputs an AIOps platform ingests.</h3>
+    <div class="answer">
+        Metrics, logs and traces (the “three pillars” of observability).
+    </div>
+
+    <h3>Name two built-in correlation engines in IBM Cloud Pak for AIOps.</h3>
+    <div class="answer">
+        Scope-based grouping and temporal grouping. (Note: IBM documentation also mentions topological grouping).
+    </div>
+
+    <h3>Give an example of a scope-based grouping policy out-of-the-box.</h3>
+    <div class="answer">
+        Group alerts that share the same hostname within a 900-second rolling window.
+    </div>
+
+    <h3>How does probable-cause analysis work in AIOps?</h3>
+    <div class="answer">
+        An unsupervised algorithm scans events and topology to identify the most likely root-cause alert, then surfaces it as the parent incident.
+    </div>
+
+    <h2>Programming / Hands-On Tasks</h2>
+    <p>(Use Python unless noted.)</p>
+
+    <h3>Code: detect seasonality in alert counts</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>import pandas as pd
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+def detect_seasonality(series, period=24):
+    """Return True if seasonal component amplitude > 0.3*std"""
+    decomp = seasonal_decompose(series, model='additive', period=period)
+    return decomp.seasonal.std() > 0.3 * series.std()</code></pre>
+
+    <h3>Code: basic anomaly detector on CPU %</h3>
+    <h4>Python</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>from sklearn.ensemble import IsolationForest
+
+def cpu_anomaly(df):
+    model = IsolationForest(contamination=0.02, random_state=42)
+    df['anomaly'] = model.fit_predict(df[['cpu_percent']])
+    return df[df['anomaly'] == -1]</code></pre>
+
+    <h3>Snippet: enrich alerts with expirySeconds (IBM Netcool/Impact JS policy)</h3>
+    <h4>JavaScript</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>if (EventContainer.alert.severity === 6)  // CRITICAL
+    aiopsUtils.patchAlertNoWait(EventContainer.alert.id, {expirySeconds: 604800});</code></pre>
+
+    <h3>Airflow DAG skeleton for nightly AIOps retrain</h3>
+    <h4>yaml</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>schedule: "0 2 * * *"
+tasks:
+  - extract_metrics
+  - drift_check >> if_drift >> retrain_model
+  - validate_model >> push_to_registry</code></pre>
+
+    <h3>Terraform snippet for AIOps-eligible SSD storage node</h3>
+    <h4>hcl</h4>
+    <pre><button class="copy-button" onclick="copyCode(this)">Copy</button><code>resource "openstack_compute_instance_v2" "aiops_storage" {
+  name            = "aiops-ssd-node"
+  flavor_name     = "c3.8xlarge"   # 16 vCPU / 64 GB RAM
+  image_name      = "ubuntu-22.04"
+  block_device {
+    uuid                  = data.openstack_blockstorage_volume_v3.ssd.id
+    source_type          = "volume"
+    destination_type     = "volume"
+    boot_index           = 0
+  }}</code></pre>
+
+    <h2>Scenario / Troubleshooting</h2>
+    <ul>
+        <li><strong>“Logs flood after a new release; how do you reduce noise?”</strong>
+            <div class="answer">
+                Implement log-level throttling at the probe, drop debug/INFO events at source, and escalate only ERROR/FATAL via Netcool/Impact policy.
+            </div>
+        </li>
+        <li><strong>“Model accuracy for anomaly detection degrades after 30 days.”</strong>
+            <div class="answer">
+                Schedule retraining during low-traffic periods and stagger model training runs at least one hour apart to avoid CPU spikes.
+            </div>
+        </li>
+        <li><strong>“Alerts double-count seasonal maintenance windows.”</strong>
+            <div class="answer">
+                Enable alert seasonality detection; AIOps will auto-tag recurring events and suppress duplicate incidents.
+            </div>
+        </li>
+    </ul>
+
+    <h2>Quick-Fire Tooling & Best-Practice Questions</h2>
+    <ul>
+        <li><strong>Which storage topology is recommended for production AIOps?</strong>
+            <div class="answer">
+                Dedicated SSD nodes (PCI passthrough) with scale-out design; avoid shared SAN/NAS. (Based on typical AIOps platform recommendations for high-performance data processing).
+            </div>
+        </li>
+        <li><strong>What object-storage class should back-up AIOps backups?</strong>
+            <div class="answer">
+                S3-compatible object storage located off-cluster. (S3 compatibility offers flexibility and broad adoption for backup solutions).
+            </div>
+        </li>
+        <li><strong>How do you future-proof an AIOps deployment?</strong>
+            <div class="answer">
+                Use platforms that auto-discover new devices and expose open APIs, ensuring seamless integration as new tools emerge. Additionally, focus on data quality, clear goal definition, and continuous model retraining/optimization.
+            </div>
+        </li>
+    </ul>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
